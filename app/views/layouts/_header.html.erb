@@ -1,0 +1,18 @@
+<header class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50">
+  <div class="container mx-auto px-5 py-4">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+      <div class="mb-2 md:mb-0">
+        <%= link_to root_path, class: "text-2xl font-bold text-gray-900 hover:text-gray-700" do %>
+          Keith Wedinger
+        <% end %>
+        <p class="text-sm text-gray-600 mt-1">Software architect, craft beer aficionado and football fan</p>
+      </div>
+      <nav class="flex space-x-4">
+        <%= link_to "Blog", root_path, class: "text-gray-700 hover:text-gray-900 px-3 py-2 rounded" %>
+        <%= link_to "Presentations", presentations_path, class: "text-gray-700 hover:text-gray-900 px-3 py-2 rounded" %>
+        <%= link_to "About Me", about_path, class: "text-gray-700 hover:text-gray-900 px-3 py-2 rounded" %>
+      </nav>
+    </div>
+  </div>
+</header>
+

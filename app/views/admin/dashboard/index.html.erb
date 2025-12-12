@@ -1,0 +1,25 @@
+<% content_for :title, "Admin Dashboard" %>
+
+<div class="max-w-6xl mx-auto">
+  <h1 class="text-4xl font-bold mb-6">Admin Dashboard</h1>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <div class="bg-white border border-gray-200 rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-2">Blog Posts</h2>
+      <p class="text-3xl font-bold text-blue-600"><%= @blog_posts_count %></p>
+      <%= link_to "Manage Blog Posts", admin_blog_posts_path, class: "mt-4 inline-block text-blue-600 hover:text-blue-800 underline" %>
+    </div>
+    
+    <div class="bg-white border border-gray-200 rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-2">Presentations</h2>
+      <p class="text-3xl font-bold text-blue-600"><%= @presentations_count %></p>
+      <%= link_to "Manage Presentations", admin_presentations_path, class: "mt-4 inline-block text-blue-600 hover:text-blue-800 underline" %>
+    </div>
+  </div>
+  
+  <div class="space-y-4">
+    <%= link_to "Edit Bio", admin_bio_path, class: "block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" %>
+    <%= link_to "Edit Contact Info", admin_contact_info_path, class: "block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" %>
+  </div>
+</div>
+

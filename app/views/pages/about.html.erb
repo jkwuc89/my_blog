@@ -1,0 +1,48 @@
+<% content_for :title, "About Me" %>
+
+<div class="max-w-4xl mx-auto">
+  <h1 class="text-4xl font-bold mb-6">About Me</h1>
+  
+  <div class="prose max-w-none mb-8">
+    <%= render_markdown(@bio.content) if @bio.content.present? %>
+  </div>
+  
+  <div class="mb-8">
+    <h2 class="text-2xl font-semibold mb-4">My Resume</h2>
+    <% if @bio.resume_url.present? %>
+      <p>
+        <%= link_to "Download/View Here", @bio.resume_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800 underline" %>
+      </p>
+    <% else %>
+      <p class="text-gray-500">Resume link not yet configured.</p>
+    <% end %>
+  </div>
+  
+  <div>
+    <h2 class="text-2xl font-semibold mb-4">Contact Me</h2>
+    <ul class="list-disc list-inside space-y-2">
+      <% if @contact_info.email.present? %>
+        <li>
+          <%= link_to @contact_info.email, "mailto:#{@contact_info.email}", class: "text-blue-600 hover:text-blue-800" %>
+        </li>
+      <% end %>
+      <% if @contact_info.twitter_url.present? %>
+        <li>Twitter: <%= link_to "@jkwuc89", @contact_info.twitter_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %></li>
+      <% end %>
+      <% if @contact_info.github_url.present? %>
+        <li>
+          <%= link_to "GitHub", @contact_info.github_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
+        </li>
+      <% end %>
+      <% if @contact_info.linkedin_url.present? %>
+        <li>
+          <%= link_to "LinkedIn", @contact_info.linkedin_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
+        </li>
+      <% end %>
+      <% if @contact_info.untapped_username.present? %>
+        <li>Untappd: <%= @contact_info.untapped_username %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+

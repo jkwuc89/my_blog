@@ -1,0 +1,36 @@
+<% content_for :title, "Presentations" %>
+
+<div class="max-w-6xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-4xl font-bold">Presentations</h1>
+    <%= link_to "New Presentation", new_admin_presentation_path, class: "px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" %>
+  </div>
+  
+  <div class="space-y-4">
+    <% @presentations.each do |presentation| %>
+      <div class="bg-white border border-gray-200 rounded-lg p-6">
+        <div class="flex justify-between items-start">
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold mb-2"><%= presentation.title %></h3>
+            <p class="text-gray-600 mb-2"><%= truncate(presentation.abstract, length: 150) %></p>
+            <% if presentation.conference_presentations.any? %>
+              <p class="text-sm text-gray-500">
+                Conferences: <%= presentation.conference_presentations.map(&:conference_name).join(", ") %>
+              </p>
+            <% end %>
+          </div>
+          <div class="flex gap-2">
+            <%= link_to "View", admin_presentation_path(presentation), class: "px-3 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
+            <%= link_to "Edit", edit_admin_presentation_path(presentation), class: "px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700" %>
+            <%= link_to "Delete", admin_presentation_path(presentation), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    
+    <% if @presentations.empty? %>
+      <p class="text-gray-500">No presentations yet. <%= link_to "Create one", new_admin_presentation_path, class: "text-blue-600 hover:text-blue-800" %>.</p>
+    <% end %>
+  </div>
+</div>
+

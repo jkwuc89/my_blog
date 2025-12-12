@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  presentation: one
+  conference_name: MyString
+  conference_url: MyString
+  presented_at: 2025-12-12
+
+two:
+  presentation: two
+  conference_name: MyString
+  conference_url: MyString
+  presented_at: 2025-12-12

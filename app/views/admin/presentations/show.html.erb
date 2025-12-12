@@ -1,0 +1,58 @@
+<% content_for :title, @presentation.title %>
+
+<div class="max-w-4xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-4xl font-bold"><%= @presentation.title %></h1>
+    <div class="flex gap-2">
+      <%= link_to "Edit", edit_admin_presentation_path(@presentation), class: "px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" %>
+      <%= link_to "Back", admin_presentations_path, class: "px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
+    </div>
+  </div>
+  
+  <div class="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
+    <div>
+      <strong>Abstract:</strong>
+      <p class="mt-2 text-gray-700"><%= @presentation.abstract %></p>
+    </div>
+    
+    <% if @presentation.slides_url.present? %>
+      <div>
+        <strong>Slides URL:</strong>
+        <%= link_to @presentation.slides_url, @presentation.slides_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
+      </div>
+    <% end %>
+    
+    <% if @presentation.github_url.present? %>
+      <div>
+        <strong>GitHub URL:</strong>
+        <%= link_to @presentation.github_url, @presentation.github_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
+      </div>
+    <% end %>
+    
+    <% if @presentation.presented_at.present? %>
+      <div>
+        <strong>First Presented:</strong> <%= @presentation.presented_at.strftime("%B %d, %Y") %>
+      </div>
+    <% end %>
+    
+    <% if @presentation.conference_presentations.any? %>
+      <div>
+        <strong>Conferences:</strong>
+        <ul class="list-disc list-inside mt-2">
+          <% @presentation.conference_presentations.each do |cp| %>
+            <li>
+              <%= cp.conference_name %>
+              <% if cp.conference_url.present? %>
+                (<%= link_to "Link", cp.conference_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>)
+              <% end %>
+              <% if cp.presented_at.present? %>
+                - <%= cp.presented_at.strftime("%B %d, %Y") %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</div>
+

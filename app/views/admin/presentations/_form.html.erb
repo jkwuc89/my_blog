@@ -1,0 +1,43 @@
+<%= form_with model: [:admin, presentation], local: true, class: "space-y-6" do |f| %>
+  <% if presentation.errors.any? %>
+    <div class="bg-red-50 border border-red-200 rounded p-4">
+      <h2 class="text-red-800 font-semibold mb-2">Errors:</h2>
+      <ul class="list-disc list-inside text-red-700">
+        <% presentation.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div>
+    <%= f.label :title, class: "block text-sm font-medium text-gray-700 mb-2" %>
+    <%= f.text_field :title, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+  </div>
+  
+  <div>
+    <%= f.label :abstract, class: "block text-sm font-medium text-gray-700 mb-2" %>
+    <%= f.text_area :abstract, rows: 8, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+  </div>
+  
+  <div>
+    <%= f.label :slides_url, "Slides URL", class: "block text-sm font-medium text-gray-700 mb-2" %>
+    <%= f.url_field :slides_url, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+  </div>
+  
+  <div>
+    <%= f.label :github_url, "GitHub URL", class: "block text-sm font-medium text-gray-700 mb-2" %>
+    <%= f.url_field :github_url, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+  </div>
+  
+  <div>
+    <%= f.label :presented_at, "First Presented Date", class: "block text-sm font-medium text-gray-700 mb-2" %>
+    <%= f.date_field :presented_at, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+  </div>
+  
+  <div class="flex gap-4">
+    <%= f.submit presentation.persisted? ? "Update Presentation" : "Create Presentation", class: "px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" %>
+    <%= link_to "Cancel", presentation.persisted? ? admin_presentation_path(presentation) : admin_presentations_path, class: "px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
+  </div>
+<% end %>
+

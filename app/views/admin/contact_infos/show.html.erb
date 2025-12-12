@@ -1,0 +1,30 @@
+<% content_for :title, "Contact Info" %>
+
+<div class="max-w-4xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-4xl font-bold">Contact Info</h1>
+    <%= link_to "Edit", edit_admin_contact_info_path, class: "px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" %>
+  </div>
+  
+  <div class="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
+    <div>
+      <strong>Email:</strong> <%= @contact_info.email %>
+    </div>
+    <div>
+      <strong>GitHub:</strong> <%= @contact_info.github_url.present? ? link_to(@contact_info.github_url, @contact_info.github_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800") : "Not set" %>
+    </div>
+    <div>
+      <strong>LinkedIn:</strong> <%= @contact_info.linkedin_url.present? ? link_to(@contact_info.linkedin_url, @contact_info.linkedin_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800") : "Not set" %>
+    </div>
+    <div>
+      <strong>Twitter/X:</strong> <%= @contact_info.twitter_url.present? ? link_to(@contact_info.twitter_url, @contact_info.twitter_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800") : "Not set" %>
+    </div>
+    <div>
+      <strong>Stack Overflow:</strong> <%= @contact_info.stackoverflow_url.present? ? link_to(@contact_info.stackoverflow_url, @contact_info.stackoverflow_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800") : "Not set" %>
+    </div>
+    <div>
+      <strong>Untappd Username:</strong> <%= @contact_info.untapped_username.present? ? @contact_info.untapped_username : "Not set" %>
+    </div>
+  </div>
+</div>
+

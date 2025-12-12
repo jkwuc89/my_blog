@@ -1,0 +1,36 @@
+<% content_for :title, "Blog Posts" %>
+
+<div class="max-w-6xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-4xl font-bold">Blog Posts</h1>
+    <%= link_to "New Blog Post", new_admin_blog_post_path, class: "px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" %>
+  </div>
+  
+  <div class="space-y-4">
+    <% @blog_posts.each do |post| %>
+      <div class="bg-white border border-gray-200 rounded-lg p-6">
+        <div class="flex justify-between items-start">
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold mb-2"><%= post.title %></h3>
+            <p class="text-gray-600 mb-2">
+              <%= post.published_at.present? ? post.published_at.strftime("%B %d, %Y") : "Draft" %>
+            </p>
+            <p class="text-sm text-gray-500">Slug: <%= post.slug %></p>
+          </div>
+          <div class="flex gap-2">
+            <% if post.published_at.present? %>
+              <%= link_to "View", blog_post_path(post.slug), target: "_blank", class: "px-3 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
+            <% end %>
+            <%= link_to "Edit", edit_admin_blog_post_path(post), class: "px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700" %>
+            <%= link_to "Delete", admin_blog_post_path(post), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    
+    <% if @blog_posts.empty? %>
+      <p class="text-gray-500">No blog posts yet. <%= link_to "Create one", new_admin_blog_post_path, class: "text-blue-600 hover:text-blue-800" %>.</p>
+    <% end %>
+  </div>
+</div>
+
