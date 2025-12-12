@@ -1,4 +1,6 @@
 class PresentationsController < ApplicationController
+  allow_unauthenticated_access
+
   def index
     @presentations = Presentation.includes(:conference_presentations).order(:title)
     @conferences = ConferencePresentation.select(:conference_name).distinct.order(:conference_name).pluck(:conference_name)
