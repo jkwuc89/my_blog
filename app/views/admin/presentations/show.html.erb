@@ -18,14 +18,14 @@
     <% if safe_url(@presentation.slides_url) %>
       <div>
         <strong>Slides URL:</strong>
-        <%= link_to @presentation.slides_url, safe_url(@presentation.slides_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline" %>
+        <%= link_to @presentation.slides_url, safe_url(@presentation.slides_url), target: "_blank", rel: "noopener", class: link_classes %>
       </div>
     <% end %>
 
     <% if safe_url(@presentation.github_url) %>
       <div>
         <strong>GitHub URL:</strong>
-        <%= link_to @presentation.github_url, safe_url(@presentation.github_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline" %>
+        <%= link_to @presentation.github_url, safe_url(@presentation.github_url), target: "_blank", rel: "noopener", class: link_classes %>
       </div>
     <% end %>
 
@@ -43,7 +43,7 @@
             <li>
               <%= cp.conference_name %>
               <% if safe_url(cp.conference_url) %>
-                (<%= link_to "Link", safe_url(cp.conference_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline" %>)
+                (<%= link_to "Link", safe_url(cp.conference_url), target: "_blank", rel: "noopener", class: link_classes %>)
               <% end %>
               <% if cp.presented_at.present? %>
                 - <%= cp.presented_at.strftime("%B %d, %Y") %>

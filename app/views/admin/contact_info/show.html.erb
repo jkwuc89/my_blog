@@ -11,19 +11,19 @@
       <strong>Email:</strong> <%= @contact_info.email %>
     </div>
     <div>
-      <strong>GitHub:</strong> <%= safe_url(@contact_info.github_url) ? link_to(@contact_info.github_url, safe_url(@contact_info.github_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline") : "Not set" %>
+      <strong>GitHub:</strong> <%= safe_url(@contact_info.github_url) ? link_to(@contact_info.github_url, safe_url(@contact_info.github_url), target: "_blank", rel: "noopener", class: link_classes) : "Not set" %>
     </div>
     <div>
-      <strong>LinkedIn:</strong> <%= safe_url(@contact_info.linkedin_url) ? link_to(@contact_info.linkedin_url, safe_url(@contact_info.linkedin_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline") : "Not set" %>
+      <strong>LinkedIn:</strong> <%= safe_url(@contact_info.linkedin_url) ? link_to(@contact_info.linkedin_url, safe_url(@contact_info.linkedin_url), target: "_blank", rel: "noopener", class: link_classes) : "Not set" %>
     </div>
     <div>
-      <strong>Twitter/X:</strong> <%= safe_url(@contact_info.twitter_url) ? link_to(@contact_info.twitter_url, safe_url(@contact_info.twitter_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline") : "Not set" %>
+      <strong>Twitter/X:</strong> <%= safe_url(@contact_info.twitter_url) ? link_to(@contact_info.twitter_url, safe_url(@contact_info.twitter_url), target: "_blank", rel: "noopener", class: link_classes) : "Not set" %>
     </div>
     <div>
-      <strong>Stack Overflow:</strong> <%= safe_url(@contact_info.stackoverflow_url) ? link_to(@contact_info.stackoverflow_url, safe_url(@contact_info.stackoverflow_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline") : "Not set" %>
+      <strong>Stack Overflow:</strong> <%= safe_url(@contact_info.stackoverflow_url) ? link_to(@contact_info.stackoverflow_url, safe_url(@contact_info.stackoverflow_url), target: "_blank", rel: "noopener", class: link_classes) : "Not set" %>
     </div>
     <div>
-      <strong>Untapped:</strong> <%= safe_url(@contact_info.untapped_url) ? link_to(@contact_info.untapped_url, safe_url(@contact_info.untapped_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline") : "Not set" %>
+      <strong>Untapped:</strong> <%= safe_url(@contact_info.untapped_url) ? link_to(@contact_info.untapped_url, safe_url(@contact_info.untapped_url), target: "_blank", rel: "noopener", class: link_classes) : "Not set" %>
     </div>
   </div>
 </div>

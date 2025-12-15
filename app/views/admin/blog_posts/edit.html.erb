@@ -5,5 +5,5 @@
 
   <%= render "form", blog_post: @blog_post %>
 
-  <%= link_to "Back", admin_blog_post_path(@blog_post), class: "mt-4 inline-block text-blue-500 hover:underline" %>
+  <%= link_to "Back", admin_blog_post_path(@blog_post), class: "mt-4 inline-block #{link_classes}" %>
 </div>
