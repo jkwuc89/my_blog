@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Admin - My Blog" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="My Blog Admin">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="flex flex-col min-h-screen">
+    <% unless controller.controller_name == "dashboard" && controller.action_name == "index" %>
+      <%= render "layouts/admin_header" %>
+    <% end %>
+    <main class="flex-1 container mx-auto px-5 py-8 <%= "mt-24" unless controller.controller_name == "dashboard" && controller.action_name == "index" %>">
+      <%= yield %>
+    </main>
+  </body>
+</html>
+
