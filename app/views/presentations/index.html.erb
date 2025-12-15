@@ -26,8 +26,8 @@
     <% @presentations.each do |presentation| %>
       <div class="border-b border-gray-200 pb-8 last:border-b-0">
         <h3 class="text-2xl font-semibold mb-2">
-          <% if presentation.slides_url.present? %>
-            <%= link_to presentation.title, presentation.slides_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
+          <% if safe_url(presentation.slides_url) %>
+            <%= link_to presentation.title, safe_url(presentation.slides_url), target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
           <% else %>
             <%= presentation.title %>
           <% end %>
@@ -37,8 +37,8 @@
           <p class="text-gray-600 mb-2">
             <em>Presented at</em>
             <% presentation.conference_presentations.each_with_index do |cp, index| %>
-              <% if cp.conference_url.present? %>
-                <%= link_to cp.conference_name, cp.conference_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
+              <% if safe_url(cp.conference_url) %>
+                <%= link_to cp.conference_name, safe_url(cp.conference_url), target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
               <% else %>
                 <%= cp.conference_name %>
               <% end %>
@@ -49,9 +49,9 @@
         
         <p class="text-gray-700 mb-4"><%= presentation.abstract %></p>
         
-        <% if presentation.github_url.present? %>
+        <% if safe_url(presentation.github_url) %>
           <p>
-            <%= link_to "GitHub Repo", presentation.github_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800 underline" %>
+            <%= link_to "GitHub Repo", safe_url(presentation.github_url), target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800 underline" %>
           </p>
         <% end %>
       </div>

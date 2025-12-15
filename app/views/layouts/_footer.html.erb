@@ -7,26 +7,26 @@
         <% end %>
       <% end %>
 
-      <% if contact_info.github_url.present? %>
-        <%= link_to contact_info.github_url, target: "_blank", rel: "noopener", class: "hover:opacity-80 transition-opacity", title: "GitHub" do %>
+      <% if safe_url(contact_info.github_url) %>
+        <%= link_to safe_url(contact_info.github_url), target: "_blank", rel: "noopener", class: "hover:opacity-80 transition-opacity", title: "GitHub" do %>
           <%= image_tag "github.svg", alt: "GitHub", class: "w-6 h-6" %>
         <% end %>
       <% end %>
 
-      <% if contact_info.linkedin_url.present? %>
-        <%= link_to contact_info.linkedin_url, target: "_blank", rel: "noopener", class: "hover:opacity-80 transition-opacity", title: "LinkedIn" do %>
+      <% if safe_url(contact_info.linkedin_url) %>
+        <%= link_to safe_url(contact_info.linkedin_url), target: "_blank", rel: "noopener", class: "hover:opacity-80 transition-opacity", title: "LinkedIn" do %>
           <%= image_tag "linkedin.svg", alt: "LinkedIn", class: "w-6 h-6" %>
         <% end %>
       <% end %>
 
-      <% if contact_info.twitter_url.present? %>
-        <%= link_to contact_info.twitter_url, target: "_blank", rel: "noopener", class: "hover:opacity-80 transition-opacity", title: "Twitter/X" do %>
+      <% if safe_url(contact_info.twitter_url) %>
+        <%= link_to safe_url(contact_info.twitter_url), target: "_blank", rel: "noopener", class: "hover:opacity-80 transition-opacity", title: "Twitter/X" do %>
           <%= image_tag "twitter.svg", alt: "Twitter/X", class: "w-6 h-6" %>
         <% end %>
       <% end %>
 
-      <% if contact_info.untapped_url.present? %>
-        <%= link_to contact_info.untapped_url, target: "_blank", rel: "noopener", class: "text-gray-600 hover:text-gray-900", title: "Untappd" do %>
+      <% if safe_url(contact_info.untapped_url) %>
+        <%= link_to safe_url(contact_info.untapped_url), target: "_blank", rel: "noopener", class: "text-gray-600 hover:text-gray-900", title: "Untappd" do %>
           <%= image_tag "Untappd.svg", alt: "Untappd", class: "w-6 h-6" %>
         <% end %>
       <% end %>

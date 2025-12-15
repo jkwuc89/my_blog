@@ -15,17 +15,17 @@
       <p class="mt-2 text-gray-700"><%= @presentation.abstract %></p>
     </div>
     
-    <% if @presentation.slides_url.present? %>
+    <% if safe_url(@presentation.slides_url) %>
       <div>
         <strong>Slides URL:</strong>
-        <%= link_to @presentation.slides_url, @presentation.slides_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
+        <%= link_to @presentation.slides_url, safe_url(@presentation.slides_url), target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
       </div>
     <% end %>
     
-    <% if @presentation.github_url.present? %>
+    <% if safe_url(@presentation.github_url) %>
       <div>
         <strong>GitHub URL:</strong>
-        <%= link_to @presentation.github_url, @presentation.github_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
+        <%= link_to @presentation.github_url, safe_url(@presentation.github_url), target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
       </div>
     <% end %>
     
@@ -42,8 +42,8 @@
           <% @presentation.conference_presentations.each do |cp| %>
             <li>
               <%= cp.conference_name %>
-              <% if cp.conference_url.present? %>
-                (<%= link_to "Link", cp.conference_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>)
+              <% if safe_url(cp.conference_url) %>
+                (<%= link_to "Link", safe_url(cp.conference_url), target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>)
               <% end %>
               <% if cp.presented_at.present? %>
                 - <%= cp.presented_at.strftime("%B %d, %Y") %>

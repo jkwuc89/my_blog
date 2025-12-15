@@ -13,7 +13,7 @@
     </div>
     
     <h2 class="text-xl font-semibold mb-4">Resume URL</h2>
-    <p><%= @bio.resume_url.present? ? link_to(@bio.resume_url, @bio.resume_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800") : "Not set" %></p>
+    <p><%= safe_url(@bio.resume_url) ? link_to(@bio.resume_url, safe_url(@bio.resume_url), target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800") : "Not set" %></p>
   </div>
 </div>
 
