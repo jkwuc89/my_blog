@@ -1,10 +1,10 @@
 <% content_for :title, "Presentations" %>
 
-<div class="max-w-4xl mx-auto">
+<div class="max-w-5xl mx-auto">
   <h1 class="text-4xl font-bold mb-6">Presentations</h1>
-  
+
   <p class="mb-6 text-gray-700">Below are links to my conference presentations. Please feel free to download and use any of the material below.</p>
-  
+
   <div class="mb-6 flex flex-col sm:flex-row gap-4">
     <div class="flex-1">
       <label for="conference_filter" class="block text-sm font-medium text-gray-700 mb-2">Filter by Conference:</label>
@@ -21,7 +21,7 @@
       <% end %>
     </div>
   </div>
-  
+
   <div id="presentations" class="space-y-8">
     <% @presentations.each do |presentation| %>
       <div class="border-b border-gray-200 pb-8 last:border-b-0">
@@ -32,7 +32,7 @@
             <%= presentation.title %>
           <% end %>
         </h3>
-        
+
         <% if presentation.conference_presentations.any? %>
           <p class="text-gray-600 mb-2">
             <em>Presented at</em>
@@ -46,9 +46,9 @@
             <% end %>
           </p>
         <% end %>
-        
+
         <p class="text-gray-700 mb-4"><%= presentation.abstract %></p>
-        
+
         <% if safe_url(presentation.github_url) %>
           <p>
             <%= link_to "GitHub Repo", safe_url(presentation.github_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline" %>
@@ -58,4 +58,3 @@
     <% end %>
   </div>
 </div>
-

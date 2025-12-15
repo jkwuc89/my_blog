@@ -1,10 +1,9 @@
 <% content_for :title, "Edit Presentation" %>
 
-<div class="max-w-4xl mx-auto">
+<div class="max-w-5xl mx-auto">
   <h1 class="text-4xl font-bold mb-6">Edit Presentation</h1>
-  
+
   <%= render "form", presentation: @presentation %>
-  
+
   <%= link_to "Back", admin_presentation_path(@presentation), class: "mt-4 inline-block text-blue-500 hover:underline" %>
 </div>
-
