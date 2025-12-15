@@ -1,11 +1,11 @@
 <% content_for :title, "Blog Posts" %>
 
-<div class="max-w-6xl mx-auto">
+<div class="max-w-4xl mx-auto">
   <div class="flex justify-between items-center mb-6">
     <h1 class="text-4xl font-bold">Blog Posts</h1>
     <%= link_to "New Blog Post", new_admin_blog_post_path, class: "px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" %>
   </div>
-  
+
   <div class="space-y-4">
     <% @blog_posts.each do |post| %>
       <div class="bg-white border border-gray-200 rounded-lg p-6">
@@ -28,10 +28,9 @@
         </div>
       </div>
     <% end %>
-    
+
     <% if @blog_posts.empty? %>
       <p class="text-gray-500">No blog posts yet. <%= link_to "Create one", new_admin_blog_post_path, class: "text-blue-500 hover:underline" %>.</p>
     <% end %>
   </div>
 </div>
-
