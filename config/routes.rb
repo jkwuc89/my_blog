@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get "about", to: "pages#about"
   get "presentations", to: "presentations#index"
   get "blog", to: "blog_posts#index"
-  get "blog/:slug", to: "blog_posts#show", as: :blog_post
+  get "blog_posts/:filename", to: "blog_posts#show", as: :blog_post
 
   # Admin routes
   namespace :admin do

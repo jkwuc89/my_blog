@@ -5,7 +5,11 @@ module ApplicationHelper
 
   def render_markdown(content)
     return "" if content.blank?
-    Kramdown::Document.new(content).to_html.html_safe
+    html = Kramdown::Document.new(content).to_html
+
+    # Insert spacing divs between paragraphs that were separated by blank lines
+    # This preserves the visual spacing of blank lines in the original markdown
+    html.gsub(/<\/p>\s*(?=<p>)/, '</p><div class="h-4"></div>').html_safe
   end
 
   def safe_url(url)

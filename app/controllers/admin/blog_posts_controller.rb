@@ -45,7 +45,7 @@ module Admin
     end
 
     def blog_post_params
-      params.require(:blog_post).permit(:title, :slug, :content, :published_at)
+      params.require(:blog_post).permit(:title, :filename, :published_at)
     end
   end
 end

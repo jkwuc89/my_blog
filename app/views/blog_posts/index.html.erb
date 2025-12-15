@@ -2,27 +2,27 @@
 
 <div class="max-w-4xl mx-auto">
   <h1 class="text-4xl font-bold mb-6">Blog</h1>
-  
+
   <div class="space-y-6">
     <% @blog_posts.each do |post| %>
       <article class="border-b border-gray-200 pb-6 last:border-b-0">
-        <h2 class="text-2xl font-semibold mb-2">
-          <%= link_to post.title, blog_post_path(post.slug), class: "text-blue-600 hover:text-blue-800" %>
+        <% filename_without_ext = post.filename.gsub(/\.md$/, "") %>
+        <h2 class="text-2xl font-bold mb-2">
+          <%= link_to post.title, blog_post_path(filename_without_ext), class: "text-blue-500 hover:underline" %>
         </h2>
-        <p class="text-gray-600 mb-3">
+        <h3 class="text-lg font-semibold text-gray-600 mb-3">
           <%= post.published_at&.strftime("%B %d, %Y") %>
-        </p>
-        <% if post.content.present? %>
-          <% excerpt = post.content.split("\n\n").first %>
+        </h3>
+        <% excerpt = BlogPostFileReader.excerpt(post.filename) %>
+        <% if excerpt.present? %>
           <p class="text-gray-700 mb-3"><%= excerpt %></p>
         <% end %>
-        <%= link_to "Read More", blog_post_path(post.slug), class: "text-blue-600 hover:text-blue-800 underline" %>
+        <%= link_to "more", blog_post_path(filename_without_ext), class: "text-blue-500 hover:underline" %>
       </article>
     <% end %>
-    
+
     <% if @blog_posts.empty? %>
       <p class="text-gray-500">No blog posts yet. Check back soon!</p>
     <% end %>
   </div>
 </div>
-

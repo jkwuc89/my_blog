@@ -8,23 +8,23 @@
       <%= link_to "Back", admin_blog_posts_path, class: "px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
     </div>
   </div>
-  
+
   <div class="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
     <div>
-      <strong>Slug:</strong> <%= @blog_post.slug %>
+      <strong>Filename:</strong> <%= @blog_post.filename %>
     </div>
-    
+
     <div>
-      <strong>Published At:</strong>
-      <%= @blog_post.published_at.present? ? @blog_post.published_at.strftime("%B %d, %Y at %I:%M %p") : "Not published" %>
+      <strong>Published Date:</strong>
+      <%= @blog_post.published_at.present? ? @blog_post.published_at.strftime("%B %d, %Y") : "Not published" %>
     </div>
-    
+
     <div>
       <strong>Content:</strong>
       <div class="prose max-w-none mt-2">
-        <%= render_markdown(@blog_post.content) if @blog_post.content.present? %>
+        <% content = BlogPostFileReader.read_content(@blog_post.filename) %>
+        <%= render_markdown(content) if content.present? %>
       </div>
     </div>
   </div>
 </div>
-

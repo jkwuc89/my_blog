@@ -15,11 +15,12 @@
             <p class="text-gray-600 mb-2">
               <%= post.published_at.present? ? post.published_at.strftime("%B %d, %Y") : "Draft" %>
             </p>
-            <p class="text-sm text-gray-500">Slug: <%= post.slug %></p>
+            <p class="text-sm text-gray-500">Filename: <%= post.filename %></p>
           </div>
           <div class="flex gap-2">
             <% if post.published_at.present? %>
-              <%= link_to "View", blog_post_path(post.slug), target: "_blank", class: "px-3 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
+              <% filename_without_ext = post.filename.gsub(/\.md$/, "") %>
+              <%= link_to "View", blog_post_path(filename_without_ext), target: "_blank", class: "px-3 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
             <% end %>
             <%= link_to "Edit", edit_admin_blog_post_path(post), class: "px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700" %>
             <%= link_to "Delete", admin_blog_post_path(post), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700" %>

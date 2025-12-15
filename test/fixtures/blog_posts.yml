@@ -2,12 +2,10 @@
 
 one:
   title: First Blog Post
-  slug: first-blog-post
-  content: MyText
+  filename: first-blog-post.md
   published_at: 2025-12-12 14:50:37
 
 two:
   title: Second Blog Post
-  slug: second-blog-post
-  content: MyText
+  filename: second-blog-post.md
   published_at: 2025-12-12 14:50:37

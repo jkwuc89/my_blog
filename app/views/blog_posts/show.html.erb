@@ -2,14 +2,13 @@
 
 <div class="max-w-4xl mx-auto">
   <article>
-    <h1 class="text-4xl font-bold mb-4"><%= @blog_post.title %></h1>
-    <p class="text-gray-600 mb-8">
+    <h2 class="text-3xl font-bold text-blue-500 mb-4"><%= @blog_post.title %></h2>
+    <h3 class="text-lg font-semibold text-gray-600 mb-8">
       <%= @blog_post.published_at&.strftime("%B %d, %Y") %>
-    </p>
-    
-    <div class="prose max-w-none">
-      <%= render_markdown(@blog_post.content) %>
+    </h3>
+
+    <div class="prose max-w-none [&>p+p]:mt-6">
+      <%= render_markdown(@content) if @content.present? %>
     </div>
   </article>
 </div>
-

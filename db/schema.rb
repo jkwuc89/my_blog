@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_15_131926) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_15_185047) do
   create_table "bios", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -19,13 +19,12 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_15_131926) do
   end
 
   create_table "blog_posts", force: :cascade do |t|
-    t.text "content"
     t.datetime "created_at", null: false
-    t.datetime "published_at"
-    t.string "slug"
+    t.string "filename"
+    t.date "published_at"
     t.string "title"
     t.datetime "updated_at", null: false
-    t.index ["slug"], name: "index_blog_posts_on_slug", unique: true
+    t.index ["filename"], name: "index_blog_posts_on_filename", unique: true
   end
 
   create_table "conference_presentations", force: :cascade do |t|
