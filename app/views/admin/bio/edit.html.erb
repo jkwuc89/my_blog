@@ -1,7 +1,7 @@
 <% content_for :title, "Edit Bio" %>
 
 <div class="max-w-5xl mx-auto">
-  <h1 class="text-4xl font-bold mb-6">Edit Bio</h1>
+  <h1 class="text-3xl font-bold mb-6">Edit Bio</h1>
 
   <%= form_with model: [:admin, @bio], local: true, class: "space-y-6" do |f| %>
     <% if @bio.errors.any? %>
