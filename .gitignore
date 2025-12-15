@@ -63,6 +63,7 @@ yarn-debug.log*
 *.swo
 *~
 .DS_Store
+*.iml
 
 # Ignore coverage reports.
 /coverage
@@ -80,4 +81,3 @@ yarn-debug.log*
 
 # Ignore Kamal deployment files.
 .kamal/hooks/*.log
-
