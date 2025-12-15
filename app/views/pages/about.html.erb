@@ -39,8 +39,10 @@
           <%= link_to "LinkedIn", @contact_info.linkedin_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
         </li>
       <% end %>
-      <% if @contact_info.untapped_username.present? %>
-        <li>Untappd: <%= @contact_info.untapped_username %></li>
+      <% if @contact_info.untapped_url.present? %>
+        <li>
+          <%= link_to "Untappd", @contact_info.untapped_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
+        </li>
       <% end %>
     </ul>
   </div>

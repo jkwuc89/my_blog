@@ -33,6 +33,12 @@
         <% end %>
       <% end %>
       
+      <% if contact_info.untapped_url.present? %>
+        <%= link_to contact_info.untapped_url, target: "_blank", rel: "noopener", class: "text-gray-600 hover:text-gray-900", title: "Untappd" do %>
+          <%= image_tag "Untappd.svg", alt: "Untappd", class: "w-6 h-6" %>
+        <% end %>
+      <% end %>
+      
       <% if contact_info.stackoverflow_url.present? %>
         <%= link_to contact_info.stackoverflow_url, target: "_blank", rel: "noopener", class: "text-gray-600 hover:text-gray-900", title: "Stack Overflow" do %>
           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">

@@ -1,5 +1,5 @@
 module Admin
-  class ContactInfosController < BaseController
+  class ContactInfoController < BaseController
     def show
       @contact_info = ContactInfo.instance
     end
@@ -20,7 +20,7 @@ module Admin
     private
 
     def contact_info_params
-      params.require(:contact_info).permit(:email, :github_url, :linkedin_url, :twitter_url, :stackoverflow_url, :untapped_username)
+      params.require(:contact_info).permit(:email, :github_url, :linkedin_url, :twitter_url, :stackoverflow_url, :untapped_url)
     end
   end
 end

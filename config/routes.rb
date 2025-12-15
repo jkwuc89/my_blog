@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root "dashboard#index"
     resource :bio, only: [:show, :edit, :update]
-    resource :contact_info, only: [:show, :edit, :update]
+    resource :contact_info, only: [:show, :edit, :update], controller: :contact_info
     resources :presentations do
       resources :conference_presentations, except: [:show, :index]
     end

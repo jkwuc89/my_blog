@@ -6,7 +6,7 @@ one:
   linkedin_url: MyString
   twitter_url: MyString
   stackoverflow_url: MyString
-  untapped_username: MyString
+  untapped_url: MyString
 
 two:
   email: MyString
@@ -14,4 +14,4 @@ two:
   linkedin_url: MyString
   twitter_url: MyString
   stackoverflow_url: MyString
-  untapped_username: MyString
+  untapped_url: MyString

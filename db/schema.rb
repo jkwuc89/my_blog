@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_12_195037) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_15_131926) do
   create_table "bios", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -38,14 +38,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_12_195037) do
     t.index ["presentation_id"], name: "index_conference_presentations_on_presentation_id"
   end
 
-  create_table "contact_infos", force: :cascade do |t|
+  create_table "contact_info", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
     t.string "github_url"
     t.string "linkedin_url"
     t.string "stackoverflow_url"
     t.string "twitter_url"
-    t.string "untapped_username"
+    t.string "untapped_url"
     t.datetime "updated_at", null: false
   end
 

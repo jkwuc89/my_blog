@@ -23,7 +23,7 @@
       <strong>Stack Overflow:</strong> <%= @contact_info.stackoverflow_url.present? ? link_to(@contact_info.stackoverflow_url, @contact_info.stackoverflow_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800") : "Not set" %>
     </div>
     <div>
-      <strong>Untappd Username:</strong> <%= @contact_info.untapped_username.present? ? @contact_info.untapped_username : "Not set" %>
+      <strong>Untapped:</strong> <%= @contact_info.untapped_url.present? ? link_to(@contact_info.untapped_url, @contact_info.untapped_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800") : "Not set" %>
     </div>
   </div>
 </div>

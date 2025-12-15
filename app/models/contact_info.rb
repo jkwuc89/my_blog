@@ -1,4 +1,6 @@
 class ContactInfo < ApplicationRecord
+  self.table_name = 'contact_info'
+
   validates :email, presence: true, on: :update
 
   # Singleton pattern - ensure only one record exists
