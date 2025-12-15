@@ -17,25 +17,25 @@
 
     <div>
       <%= f.label :name, "Name", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= f.text_field :name, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+      <%= f.text_field :name, class: admin_input_classes %>
       <p class="mt-2 text-sm text-gray-500">Name displayed in the header.</p>
     </div>
 
     <div>
       <%= f.label :brief_bio, "Brief Bio", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= f.text_field :brief_bio, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+      <%= f.text_field :brief_bio, class: admin_input_classes %>
       <p class="mt-2 text-sm text-gray-500">Brief tagline displayed under the name in the header.</p>
     </div>
 
     <div>
       <%= f.label :content, "Bio Content (Markdown)", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= f.text_area :content, rows: 15, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+      <%= f.text_area :content, rows: 15, class: admin_input_classes %>
       <p class="mt-2 text-sm text-gray-500">You can use Markdown formatting here.</p>
     </div>
 
     <div>
       <%= f.label :resume_url, "Resume URL (GitHub raw link)", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= f.text_field :resume_url, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "https://github.com/jkwuc89/my-blog/raw/main/resume.pdf" %>
+      <%= f.text_field :resume_url, class: admin_input_classes, placeholder: "https://github.com/jkwuc89/my-blog/raw/main/resume.pdf" %>
     </div>
 
     <div class="flex gap-4">

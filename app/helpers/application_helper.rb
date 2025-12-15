@@ -17,4 +17,8 @@ module ApplicationHelper
     return url if url.start_with?("http://", "https://")
     nil
   end
+
+  def admin_input_classes
+    "block w-full bg-white border border-gray-200 rounded-md px-4 py-3 focus:border-blue-500 transition-all"
+  end
 end
