@@ -1,5 +1,5 @@
 module Admin
-  class BiosController < BaseController
+  class BioController < BaseController
     def show
       @bio = Bio.instance
     end
@@ -20,7 +20,7 @@ module Admin
     private
 
     def bio_params
-      params.require(:bio).permit(:content, :resume_url)
+      params.require(:bio).permit(:name, :brief_bio, :content, :resume_url)
     end
   end
 end

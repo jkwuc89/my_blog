@@ -1,0 +1,30 @@
+<% content_for :title, "Bio" %>
+
+<div class="max-w-4xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-4xl font-bold">Bio</h1>
+    <%= link_to "Edit", edit_admin_bio_path, class: "px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" %>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
+    <div>
+      <h2 class="text-xl font-semibold">Name: <span class="font-normal"><%= @bio.name %></span></h2>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-semibold">Brief Bio: <span class="font-normal"><%= @bio.brief_bio %></span></h2>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-semibold mb-4">Content</h2>
+      <div class="prose max-w-none mb-6 [&_a]:text-blue-500 [&_a]:hover:underline">
+        <%= render_markdown(@bio.content) if @bio.content.present? %>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-semibold mb-4">Resume URL</h2>
+      <p><%= safe_url(@bio.resume_url) ? link_to(@bio.resume_url, safe_url(@bio.resume_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline") : "Not set" %></p>
+    </div>
+  </div>
+</div>

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # Admin routes
   namespace :admin do
     root "dashboard#index"
-    resource :bio, only: [:show, :edit, :update]
+    resource :bio, only: [:show, :edit, :update], controller: :bio
     resource :contact_info, only: [:show, :edit, :update], controller: :contact_info
     resources :presentations do
       resources :conference_presentations, except: [:show, :index]
