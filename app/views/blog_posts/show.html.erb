@@ -7,7 +7,7 @@
       <%= @blog_post.published_at&.strftime("%B %d, %Y") %>
     </h3>
 
-    <div class="prose max-w-none [&>p+p]:mt-6">
+    <div class="prose max-w-none [&>p+p]:mt-6 [&_a]:text-blue-500 [&_a]:hover:underline">
       <%= render_markdown(@content) if @content.present? %>
     </div>
   </article>

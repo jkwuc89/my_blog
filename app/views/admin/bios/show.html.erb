@@ -8,7 +8,7 @@
   
   <div class="bg-white border border-gray-200 rounded-lg p-6">
     <h2 class="text-xl font-semibold mb-4">Content</h2>
-    <div class="prose max-w-none mb-6">
+    <div class="prose max-w-none mb-6 [&_a]:text-blue-500 [&_a]:hover:underline">
       <%= render_markdown(@bio.content) if @bio.content.present? %>
     </div>
     
