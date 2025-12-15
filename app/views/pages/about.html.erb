@@ -11,7 +11,7 @@
     <h2 class="text-2xl font-semibold mb-4">My Resume</h2>
     <% if safe_url(@bio.resume_url) %>
       <p>
-        <%= link_to "Download/View Here", safe_url(@bio.resume_url), target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800 underline" %>
+        <%= link_to "Download/View Here", safe_url(@bio.resume_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline" %>
       </p>
     <% else %>
       <p class="text-gray-500">Resume link not yet configured.</p>
@@ -23,25 +23,25 @@
     <ul class="list-disc list-inside space-y-2">
       <% if @contact_info.email.present? %>
         <li>
-          <%= link_to @contact_info.email, "mailto:#{@contact_info.email}", class: "text-blue-600 hover:text-blue-800" %>
+          <%= link_to @contact_info.email, "mailto:#{@contact_info.email}", class: "text-blue-500 hover:underline" %>
         </li>
       <% end %>
       <% if safe_url(@contact_info.twitter_url) %>
-        <li>Twitter: <%= link_to "@jkwuc89", safe_url(@contact_info.twitter_url), target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %></li>
+        <li>Twitter: <%= link_to "@jkwuc89", safe_url(@contact_info.twitter_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline" %></li>
       <% end %>
       <% if safe_url(@contact_info.github_url) %>
         <li>
-          <%= link_to "GitHub", safe_url(@contact_info.github_url), target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
+          <%= link_to "GitHub", safe_url(@contact_info.github_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline" %>
         </li>
       <% end %>
       <% if safe_url(@contact_info.linkedin_url) %>
         <li>
-          <%= link_to "LinkedIn", safe_url(@contact_info.linkedin_url), target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
+          <%= link_to "LinkedIn", safe_url(@contact_info.linkedin_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline" %>
         </li>
       <% end %>
       <% if safe_url(@contact_info.untapped_url) %>
         <li>
-          <%= link_to "Untappd", safe_url(@contact_info.untapped_url), target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-800" %>
+          <%= link_to "Untappd", safe_url(@contact_info.untapped_url), target: "_blank", rel: "noopener", class: "text-blue-500 hover:underline" %>
         </li>
       <% end %>
     </ul>
