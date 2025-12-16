@@ -3,7 +3,7 @@
 <div class="max-w-5xl mx-auto">
   <h1 class="<%= h1_classes %>">Admin Dashboard</h1>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
     <div class="bg-white border border-gray-200 rounded-lg p-6">
       <h2 class="text-xl font-semibold mb-2">Blog Posts</h2>
       <p class="text-2xl font-bold text-blue-600"><%= @blog_posts_count %></p>
@@ -14,6 +14,12 @@
       <h2 class="text-xl font-semibold mb-2">Presentations</h2>
       <p class="text-2xl font-bold text-blue-600"><%= @presentations_count %></p>
       <%= link_to "Manage Presentations", admin_presentations_path, class: "mt-4 inline-block #{link_classes}" %>
+    </div>
+
+    <div class="bg-white border border-gray-200 rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-2">Conferences</h2>
+      <p class="text-2xl font-bold text-blue-600"><%= @conferences_count %></p>
+      <%= link_to "Manage Conferences", admin_conferences_path, class: "mt-4 inline-block #{link_classes}" %>
     </div>
   </div>
 
