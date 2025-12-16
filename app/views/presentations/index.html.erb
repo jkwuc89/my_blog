@@ -8,15 +8,28 @@
   <div class="space-y-8">
     <% @presentations.each do |presentation| %>
       <div class="border-b border-gray-200 pb-8 last:border-b-0">
-        <h3 class="text-2xl font-semibold mb-2">
+        <h2 class="text-xl font-semibold mb-2">
           <%= presentation.title %>
-        </h3>
+        </h2>
+
+        <% if safe_url(presentation.slides_url) %>
+          <p class="mb-2">
+            <%= link_to safe_url(presentation.slides_url), target: "_blank", rel: "noopener", class: "#{link_classes} inline-flex items-center gap-1" do %>
+              Download Slidedeck
+              <%= image_tag "download.svg", alt: "Download", class: "w-4 h-4" %>
+            <% end %>
+          </p>
+        <% end %>
 
         <% if presentation.conferences.any? %>
           <p class="text-gray-600 mb-2">
-            <em>Presented at</em>
+            <span class="font-semibold">Presented at:</span>
             <% presentation.conferences.order(:title, :year).each_with_index do |conference, index| %>
-              <%= conference.title %> (<%= conference.year %>)
+              <% if safe_url(conference.link) %>
+                <%= link_to "#{conference.title} (#{conference.year})", safe_url(conference.link), target: "_blank", rel: "noopener", class: link_classes %>
+              <% else %>
+                <%= conference.title %> (<%= conference.year %>)
+              <% end %>
               <%= "," unless index == presentation.conferences.length - 1 %>
             <% end %>
           </p>
