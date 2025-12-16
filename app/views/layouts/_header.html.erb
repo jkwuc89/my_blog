@@ -1,13 +1,18 @@
-<header class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50">
+<header class="fixed top-0 left-0 right-0 bg-gray-200 border-b border-gray-300 z-50">
   <div class="max-w-5xl mx-auto py-4">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-      <div class="mb-2 md:mb-0">
-        <%= link_to root_path, class: "text-3xl font-bold #{link_classes}" do %>
-          <%= Bio.instance.name.presence || "Name" %>
+      <div class="mb-2 md:mb-0 flex items-center">
+        <%= link_to root_path, class: "mr-3 flex-shrink-0" do %>
+          <%= image_tag "profile_photo.png", alt: "Profile Photo", class: "w-16 h-16 rounded-lg object-cover" %>
         <% end %>
-        <% if Bio.instance.brief_bio.present? %>
-          <p class="text-lg text-gray-600 mt-1"><%= Bio.instance.brief_bio %></p>
-        <% end %>
+        <div>
+          <%= link_to root_path, class: "text-3xl font-bold #{link_classes}" do %>
+            <%= Bio.instance.name.presence || "Name" %>
+          <% end %>
+          <% if Bio.instance.brief_bio.present? %>
+            <p class="text-lg text-gray-600 mt-1"><%= Bio.instance.brief_bio %></p>
+          <% end %>
+        </div>
       </div>
       <nav class="flex space-x-4">
         <% nav_link_classes = "#{link_classes} text-lg font-semibold px-3 py-2 rounded" %>
