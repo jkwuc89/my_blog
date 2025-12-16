@@ -1,6 +1,6 @@
 <% content_for :title, "Presentations" %>
 
-<div class="max-w-6xl mx-auto">
+<div class="max-w-5xl mx-auto">
   <div class="flex justify-between items-center mb-6">
     <h1 class="text-2xl font-bold">Presentations</h1>
     <%= link_to "New Presentation", new_admin_presentation_path, class: "px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" %>
@@ -13,10 +13,12 @@
           <div class="flex-1">
             <h3 class="text-xl font-semibold mb-2"><%= presentation.title %></h3>
             <p class="text-gray-600 mb-2"><%= truncate(presentation.abstract, length: 150) %></p>
-            <% if presentation.conference_presentations.any? %>
+            <% if presentation.conferences.any? %>
               <p class="text-sm text-gray-500">
-                Conferences: <%= presentation.conference_presentations.map(&:conference_name).join(", ") %>
+                Conferences: <%= presentation.conferences.order(:title, :year).map { |c| "#{c.title} (#{c.year})" }.join(", ") %>
               </p>
+            <% else %>
+              <p class="text-sm text-gray-500">No conferences associated</p>
             <% end %>
           </div>
           <div class="flex gap-2">

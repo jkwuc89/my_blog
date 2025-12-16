@@ -29,10 +29,23 @@
     <%= f.label :github_url, "GitHub URL", class: "block text-sm font-medium text-gray-700 mb-2" %>
     <%= f.url_field :github_url, class: admin_input_classes %>
   </div>
-  
+
   <div>
-    <%= f.label :presented_at, "First Presented Date", class: "block text-sm font-medium text-gray-700 mb-2" %>
-    <%= f.date_field :presented_at, class: admin_input_classes %>
+    <label class="block text-sm font-medium text-gray-700 mb-2">Conferences</label>
+    <% if Conference.any? %>
+      <div class="space-y-2 max-h-60 overflow-y-auto border border-gray-200 rounded-md p-4">
+        <% Conference.order(:title, :year).each do |conference| %>
+          <div class="flex items-center">
+            <%= check_box_tag "presentation[conference_ids][]", conference.id, presentation.conferences.include?(conference), id: "conference_#{conference.id}", class: "mr-2" %>
+            <%= label_tag "conference_#{conference.id}", "#{conference.title} (#{conference.year})", class: "text-sm text-gray-700" %>
+          </div>
+        <% end %>
+        <%= hidden_field_tag "presentation[conference_ids][]", "" %>
+      </div>
+      <p class="mt-2 text-sm text-gray-500">Select one or more conferences where this presentation was given.</p>
+    <% else %>
+      <p class="text-gray-500">No conferences available. <%= link_to "Create a conference", new_admin_conference_path, class: link_classes %> first.</p>
+    <% end %>
   </div>
   
   <div class="flex gap-4">

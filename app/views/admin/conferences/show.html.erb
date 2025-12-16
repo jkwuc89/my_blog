@@ -1,0 +1,47 @@
+<% content_for :title, @conference.title %>
+
+<div class="max-w-5xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="<%= h1_classes %>"><%= @conference.title %> (<%= @conference.year %>)</h1>
+    <div class="flex gap-2">
+      <%= link_to "Edit", edit_admin_conference_path(@conference), class: "px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" %>
+      <%= link_to "Delete", admin_conference_path(@conference), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700" %>
+    </div>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Year</h2>
+      <p class="text-gray-700"><%= @conference.year %></p>
+    </div>
+
+    <% if @conference.link.present? %>
+      <div>
+        <h2 class="text-lg font-semibold mb-2">Link</h2>
+        <p>
+          <%= link_to @conference.link, safe_url(@conference.link), target: "_blank", rel: "noopener", class: link_classes %>
+        </p>
+      </div>
+    <% end %>
+
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Presentations</h2>
+      <% if @conference.presentations.any? %>
+        <ul class="list-disc list-inside space-y-2">
+          <% @conference.presentations.order(:title).each do |presentation| %>
+            <li>
+              <%= link_to presentation.title, admin_presentation_path(presentation), class: link_classes %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-gray-500">No presentations associated with this conference.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <%= link_to "Back to Conferences", admin_conferences_path, class: "px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
+  </div>
+</div>
+

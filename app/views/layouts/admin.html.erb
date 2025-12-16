@@ -23,9 +23,8 @@
     <% unless controller.controller_name == "dashboard" && controller.action_name == "index" %>
       <%= render "layouts/admin_header" %>
     <% end %>
-    <main class="flex-1 container mx-auto px-5 py-8 <%= "mt-24" unless controller.controller_name == "dashboard" && controller.action_name == "index" %>">
+    <main class="flex-1 container mx-auto px-5 <%= "mt-24" unless controller.controller_name == "dashboard" && controller.action_name == "index" %>">
       <%= yield %>
     </main>
   </body>
 </html>
-

@@ -1,0 +1,37 @@
+<% content_for :title, "Conferences" %>
+
+<div class="max-w-5xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">Conferences</h1>
+    <%= link_to "New Conference", new_admin_conference_path, class: "px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" %>
+  </div>
+
+  <div class="space-y-4">
+    <% @conferences.each do |conference| %>
+      <div class="bg-white border border-gray-200 rounded-lg p-6">
+        <div class="flex justify-between items-start">
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold mb-2"><%= conference.title %> (<%= conference.year %>)</h3>
+            <% if conference.link.present? %>
+              <p class="text-sm text-gray-600">
+                <%= link_to conference.link, safe_url(conference.link), target: "_blank", rel: "noopener", class: link_classes %>
+              </p>
+            <% end %>
+            <p class="text-sm text-gray-500 mt-2">
+              <%= pluralize(conference.presentations.count, "presentation") %>
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <%= link_to "View", admin_conference_path(conference), class: "px-3 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
+            <%= link_to "Edit", edit_admin_conference_path(conference), class: "px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700" %>
+            <%= link_to "Delete", admin_conference_path(conference), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @conferences.empty? %>
+      <p class="text-gray-500">No conferences yet. <%= link_to "Create one", new_admin_conference_path, class: link_classes %>.</p>
+    <% end %>
+  </div>
+</div>

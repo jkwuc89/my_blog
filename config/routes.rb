@@ -14,9 +14,8 @@ Rails.application.routes.draw do
     root "dashboard#index"
     resource :bio, only: [:show, :edit, :update], controller: :bio
     resource :contact_info, only: [:show, :edit, :update], controller: :contact_info
-    resources :presentations do
-      resources :conference_presentations, except: [:show, :index]
-    end
+    resources :conferences
+    resources :presentations
     resources :blog_posts
   end
 

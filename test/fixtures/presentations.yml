@@ -5,11 +5,9 @@ one:
   abstract: MyText
   slides_url: MyString
   github_url: MyString
-  presented_at: 2025-12-12
 
 two:
   title: MyString
   abstract: MyText
   slides_url: MyString
   github_url: MyString
-  presented_at: 2025-12-12

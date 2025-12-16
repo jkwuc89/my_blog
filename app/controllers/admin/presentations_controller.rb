@@ -3,7 +3,7 @@ module Admin
     before_action :set_presentation, only: [:show, :edit, :update, :destroy]
 
     def index
-      @presentations = Presentation.includes(:conference_presentations).order(:title)
+      @presentations = Presentation.includes(:conferences).order(:title)
     end
 
     def show
@@ -45,7 +45,7 @@ module Admin
     end
 
     def presentation_params
-      params.require(:presentation).permit(:title, :abstract, :slides_url, :github_url, :presented_at)
+      params.require(:presentation).permit(:title, :abstract, :slides_url, :github_url, conference_ids: [])
     end
   end
 end

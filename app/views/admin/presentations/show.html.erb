@@ -2,7 +2,7 @@
 
 <div class="max-w-5xl mx-auto">
   <div class="flex justify-between items-center mb-6">
-    <h1 class="text-2xl font-bold"><%= @presentation.title %></h1>
+    <h1 class="<%= h1_classes %>"><%= @presentation.title %></h1>
     <div class="flex gap-2">
       <%= link_to "Edit", edit_admin_presentation_path(@presentation), class: "px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" %>
       <%= link_to "Back", admin_presentations_path, class: "px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
@@ -29,28 +29,24 @@
       </div>
     <% end %>
 
-    <% if @presentation.presented_at.present? %>
-      <div>
-        <strong>First Presented:</strong> <%= @presentation.presented_at.strftime("%B %d, %Y") %>
-      </div>
-    <% end %>
-
-    <% if @presentation.conference_presentations.any? %>
+    <% if @presentation.conferences.any? %>
       <div>
         <strong>Conferences:</strong>
         <ul class="list-disc list-inside mt-2">
-          <% @presentation.conference_presentations.each do |cp| %>
+          <% @presentation.conferences.order(:title, :year).each do |conference| %>
             <li>
-              <%= cp.conference_name %>
-              <% if safe_url(cp.conference_url) %>
-                (<%= link_to "Link", safe_url(cp.conference_url), target: "_blank", rel: "noopener", class: link_classes %>)
-              <% end %>
-              <% if cp.presented_at.present? %>
-                - <%= cp.presented_at.strftime("%B %d, %Y") %>
+              <%= conference.title %> (<%= conference.year %>)
+              <% if safe_url(conference.link) %>
+                - <%= link_to "Conference Link", safe_url(conference.link), target: "_blank", rel: "noopener", class: link_classes %>
               <% end %>
             </li>
           <% end %>
         </ul>
+      </div>
+    <% else %>
+      <div>
+        <strong>Conferences:</strong>
+        <p class="text-gray-500 mt-2">No conferences associated with this presentation.</p>
       </div>
     <% end %>
   </div>

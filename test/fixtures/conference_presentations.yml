@@ -2,12 +2,8 @@
 
 one:
   presentation: one
-  conference_name: MyString
-  conference_url: MyString
-  presented_at: 2025-12-12
+  conference: one
 
 two:
   presentation: two
-  conference_name: MyString
-  conference_url: MyString
-  presented_at: 2025-12-12
+  conference: two

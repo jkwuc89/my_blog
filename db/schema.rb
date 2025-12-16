@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_16_120940) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_16_141414) do
   create_table "bio", force: :cascade do |t|
     t.string "brief_bio"
     t.text "content"
@@ -29,13 +29,21 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_120940) do
   end
 
   create_table "conference_presentations", force: :cascade do |t|
-    t.string "conference_name"
-    t.string "conference_url"
+    t.integer "conference_id", null: false
     t.datetime "created_at", null: false
     t.integer "presentation_id", null: false
-    t.date "presented_at"
     t.datetime "updated_at", null: false
+    t.index ["conference_id"], name: "index_conference_presentations_on_conference_id"
     t.index ["presentation_id"], name: "index_conference_presentations_on_presentation_id"
+  end
+
+  create_table "conferences", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "link"
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.integer "year", null: false
+    t.index ["title", "year"], name: "index_conferences_on_title_and_year", unique: true
   end
 
   create_table "contact_info", force: :cascade do |t|
@@ -53,7 +61,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_120940) do
     t.text "abstract"
     t.datetime "created_at", null: false
     t.string "github_url"
-    t.date "presented_at"
     t.string "slides_url"
     t.string "title"
     t.datetime "updated_at", null: false
@@ -76,6 +83,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_120940) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "conference_presentations", "conferences"
   add_foreign_key "conference_presentations", "presentations"
   add_foreign_key "sessions", "users"
 end
