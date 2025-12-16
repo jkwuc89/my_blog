@@ -17,11 +17,14 @@ class BlogPostFileReader
 
     # Remove markdown headers and code blocks for excerpt
     text = content.gsub(/^#+\s+/, "") # Remove headers
-                 .gsub(/```[\s\S]*?```/, "") # Remove code blocks
-                 .gsub(/`[^`]+`/, "") # Remove inline code
-                 .gsub(/\[([^\]]+)\]\([^\)]+\)/, '\1') # Convert links to text
-                 .gsub(/[!\[][^\]]*\]\([^\)]+\)/, "") # Remove images
-                 .strip
+      .gsub(/^#+\s+/, "") # Remove headers
+      .gsub(/```[\s\S]*?```/, "") # Remove code blocks
+      .gsub(/`[^`]+`/, "") # Remove inline code
+      .gsub(/\*\*([^\*]+)\*\*/, '\1') # Remove bold (**text**)
+      .gsub(/\*([^\*]+)\*/, '\1') # Remove italic (*text*)
+      .gsub(/\[([^\]]+)\]\([^\)]+\)/, '\1') # Convert links to text
+      .gsub(/[!\[][^\]]*\]\([^\)]+\)/, "") # Remove images
+      .strip
 
     # Split into words and take first N words
     word_array = text.split(/\s+/)
