@@ -1,16 +1,16 @@
 <% content_for :title, "Blog" %>
 
 <div class="max-w-5xl mx-auto">
-  <h1 class="text-3xl font-bold mb-6">Blog</h1>
+  <h1 class="<%= h1_classes %>">Blog</h1>
 
   <div class="space-y-6">
     <% @blog_posts.each do |post| %>
       <article class="border-b border-gray-200 pb-6 last:border-b-0">
         <% filename_without_ext = post.filename.gsub(/\.md$/, "") %>
-        <h2 class="text-2xl font-bold mb-2">
+        <h2 class="text-xl font-bold mb-1">
           <%= link_to post.title, blog_post_path(filename_without_ext), class: link_classes %>
         </h2>
-        <h3 class="text-lg font-semibold text-gray-600 mb-3">
+        <h3 class="text-base font-semibold text-gray-600 mb-3">
           <%= post.published_at&.strftime("%B %d, %Y") %>
         </h3>
         <% excerpt = BlogPostFileReader.excerpt(post.filename) %>

@@ -7,6 +7,10 @@ module ApplicationHelper
     @contact_info ||= ContactInfo.instance
   end
 
+  def h1_classes
+    "text-2xl font-bold mb-3"
+  end
+
   def link_classes
     "text-blue-500 hover:underline"
   end

@@ -1,21 +1,21 @@
 <% content_for :title, "About Me" %>
 
 <div class="max-w-5xl mx-auto">
-  <h1 class="text-3xl font-bold mb-6">About Me</h1>
+  <h1 class="<%= h1_classes %>">About Me</h1>
 
   <div class="prose max-w-none mb-8 [&_a]:text-blue-500 [&_a]:hover:underline">
     <%= render_markdown(@bio.content) if @bio.content.present? %>
   </div>
 
   <div class="mb-8">
-    <h2 class="text-2xl font-semibold mb-4">My Resume</h2>
+    <h2 class="text-xl font-semibold mb-2">My Resume</h2>
     <p>
       <%= link_to "Download/View Here", "/documents/Keith Wedinger Resume.pdf", target: "_blank", rel: "noopener", class: link_classes %>
     </p>
   </div>
 
   <div>
-    <h2 class="text-2xl font-semibold mb-4">Contact Me</h2>
+    <h2 class="text-xl font-semibold mb-2">Contact Me</h2>
     <ul class="list-disc list-inside space-y-2">
       <% if @contact_info.email.present? %>
         <li>
