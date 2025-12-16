@@ -20,7 +20,7 @@ module Admin
     private
 
     def bio_params
-      params.require(:bio).permit(:name, :brief_bio, :content, :resume_url)
+      params.require(:bio).permit(:name, :brief_bio, :content)
     end
   end
 end

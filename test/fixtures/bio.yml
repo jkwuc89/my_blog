@@ -4,10 +4,8 @@ one:
   name: Test Name
   brief_bio: Test Brief Bio
   content: MyText
-  resume_url: MyString
 
 two:
   name: Test Name Two
   brief_bio: Test Brief Bio Two
   content: MyText
-  resume_url: MyString

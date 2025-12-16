@@ -9,13 +9,9 @@
 
   <div class="mb-8">
     <h2 class="text-2xl font-semibold mb-4">My Resume</h2>
-    <% if safe_url(@bio.resume_url) %>
-      <p>
-        <%= link_to "Download/View Here", safe_url(@bio.resume_url), target: "_blank", rel: "noopener", class: link_classes %>
-      </p>
-    <% else %>
-      <p class="text-gray-500">Resume link not yet configured.</p>
-    <% end %>
+    <p>
+      <%= link_to "Download/View Here", "/documents/Keith Wedinger Resume.pdf", target: "_blank", rel: "noopener", class: link_classes %>
+    </p>
   </div>
 
   <div>
@@ -27,7 +23,7 @@
         </li>
       <% end %>
       <% if safe_url(@contact_info.twitter_url) %>
-        <li>Twitter: <%= link_to "@jkwuc89", safe_url(@contact_info.twitter_url), target: "_blank", rel: "noopener", class: link_classes %></li>
+        <li>X: <%= link_to "@jkwuc89", safe_url(@contact_info.twitter_url), target: "_blank", rel: "noopener", class: link_classes %></li>
       <% end %>
       <% if safe_url(@contact_info.github_url) %>
         <li>
