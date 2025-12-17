@@ -9,8 +9,11 @@
 
   <div class="mb-8">
     <h2 class="text-xl font-semibold mb-2">My Resume</h2>
-    <p>
-      <%= link_to "Download/View Here", "/documents/Keith Wedinger Resume.pdf", target: "_blank", rel: "noopener", class: link_classes %>
+    <p class="mb-2">
+      <%= link_to "/documents/Keith Wedinger Resume.pdf", target: "_blank", rel: "noopener", class: "#{link_classes} inline-flex items-center gap-1" do %>
+        Download/View
+        <%= image_tag "download.svg", alt: "Download", class: "w-4 h-4" %>
+      <% end %>
     </p>
   </div>
 
