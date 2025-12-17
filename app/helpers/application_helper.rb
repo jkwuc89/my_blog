@@ -38,4 +38,13 @@ module ApplicationHelper
       .map { |path| File.basename(path) }
       .sort
   end
+
+  def available_blog_post_files
+    blog_posts_dir = Rails.root.join('public', 'blog_posts')
+    return [] unless Dir.exist?(blog_posts_dir)
+
+    Dir.glob(File.join(blog_posts_dir, '*.md'))
+      .map { |path| File.basename(path) }
+      .sort
+  end
 end

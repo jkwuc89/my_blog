@@ -16,9 +16,13 @@
   </div>
 
   <div>
-    <%= f.label :filename, class: "block text-sm font-medium text-gray-700 mb-2" %>
-    <%= f.text_field :filename, class: admin_input_classes %>
-    <p class="mt-2 text-sm text-gray-500">Filename must be unique within the blog_posts directory (e.g., "my-post.md").</p>
+    <%= f.label :filename, "Blog Post File", class: "block text-sm font-medium text-gray-700 mb-2" %>
+    <%= f.select :filename,
+        options_for_select([['No file selected', '']] + available_blog_post_files.map { |f| [f, f] },
+        blog_post.filename),
+        {},
+        { class: admin_input_classes } %>
+    <p class="mt-2 text-sm text-gray-500">Select a markdown file from the public/blog_posts directory.</p>
   </div>
 
   <div>

@@ -1,5 +1,5 @@
 class BlogPostFileReader
-  BLOG_POSTS_DIR = Rails.root.join("blog_posts")
+  BLOG_POSTS_DIR = Rails.root.join("public", "blog_posts")
 
   def self.read_content(filename)
     file_path = BLOG_POSTS_DIR.join(filename)
