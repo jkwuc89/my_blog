@@ -12,9 +12,9 @@
           <%= presentation.title %>
         </h2>
 
-        <% if safe_url(presentation.slides_url) %>
+        <% if presentation.slides_url.present? %>
           <p class="mb-2">
-            <%= link_to safe_url(presentation.slides_url), target: "_blank", rel: "noopener", class: "#{link_classes} inline-flex items-center gap-1" do %>
+            <%= link_to "/presentations/#{presentation.slides_url}", target: "_blank", rel: "noopener", class: "#{link_classes} inline-flex items-center gap-1" do %>
               Download Slidedeck
               <%= image_tag "download.svg", alt: "Download", class: "w-4 h-4" %>
             <% end %>

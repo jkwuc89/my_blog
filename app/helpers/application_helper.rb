@@ -29,4 +29,13 @@ module ApplicationHelper
     return url if url.start_with?("http://", "https://")
     nil
   end
+
+  def available_presentation_files
+    presentations_dir = Rails.root.join('public', 'presentations')
+    return [] unless Dir.exist?(presentations_dir)
+
+    Dir.glob(File.join(presentations_dir, '*.pptx'))
+      .map { |path| File.basename(path) }
+      .sort
+  end
 end
