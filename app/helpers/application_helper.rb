@@ -21,7 +21,7 @@ module ApplicationHelper
 
     # Insert spacing divs between paragraphs that were separated by blank lines
     # This preserves the visual spacing of blank lines in the original markdown
-    html.gsub(/<\/p>\s*(?=<p>)/, '</p><div class="h-4"></div>').html_safe
+    html.gsub(/<\/p>\s*(?=<p>)/, "</p><div class='h-4'></div>").html_safe
   end
 
   def safe_url(url)
@@ -31,19 +31,19 @@ module ApplicationHelper
   end
 
   def available_presentation_files
-    presentations_dir = Rails.root.join('public', 'presentations')
+    presentations_dir = Rails.root.join("public", "presentations")
     return [] unless Dir.exist?(presentations_dir)
 
-    Dir.glob(File.join(presentations_dir, '*.pptx'))
+    Dir.glob(File.join(presentations_dir, "*.pptx"))
       .map { |path| File.basename(path) }
       .sort
   end
 
   def available_blog_post_files
-    blog_posts_dir = Rails.root.join('public', 'blog_posts')
+    blog_posts_dir = Rails.root.join("public", "blog_posts")
     return [] unless Dir.exist?(blog_posts_dir)
 
-    Dir.glob(File.join(blog_posts_dir, '*.md'))
+    Dir.glob(File.join(blog_posts_dir, "*.md"))
       .map { |path| File.basename(path) }
       .sort
   end
