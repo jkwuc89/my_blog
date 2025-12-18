@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_16_141414) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_18_114038) do
   create_table "bio", force: :cascade do |t|
     t.string "brief_bio"
     t.text "content"
@@ -51,7 +51,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_141414) do
     t.string "email"
     t.string "github_url"
     t.string "linkedin_url"
-    t.string "stackoverflow_url"
     t.string "twitter_url"
     t.string "untapped_url"
     t.datetime "updated_at", null: false

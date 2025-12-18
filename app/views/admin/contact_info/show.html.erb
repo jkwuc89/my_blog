@@ -20,9 +20,6 @@
       <strong>Twitter/X:</strong> <%= safe_url(@contact_info.twitter_url) ? link_to(@contact_info.twitter_url, safe_url(@contact_info.twitter_url), target: "_blank", rel: "noopener", class: link_classes) : "Not set" %>
     </div>
     <div>
-      <strong>Stack Overflow:</strong> <%= safe_url(@contact_info.stackoverflow_url) ? link_to(@contact_info.stackoverflow_url, safe_url(@contact_info.stackoverflow_url), target: "_blank", rel: "noopener", class: link_classes) : "Not set" %>
-    </div>
-    <div>
       <strong>Untapped:</strong> <%= safe_url(@contact_info.untapped_url) ? link_to(@contact_info.untapped_url, safe_url(@contact_info.untapped_url), target: "_blank", rel: "noopener", class: link_classes) : "Not set" %>
     </div>
   </div>

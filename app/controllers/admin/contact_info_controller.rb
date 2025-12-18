@@ -20,7 +20,7 @@ module Admin
     private
 
     def contact_info_params
-      params.require(:contact_info).permit(:email, :github_url, :linkedin_url, :twitter_url, :stackoverflow_url, :untapped_url)
+      params.require(:contact_info).permit(:email, :github_url, :linkedin_url, :twitter_url, :untapped_url)
     end
   end
 end
