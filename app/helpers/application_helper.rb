@@ -3,8 +3,30 @@ module ApplicationHelper
     "block w-full bg-white border border-gray-200 rounded-md px-4 py-3 focus:border-blue-500 transition-all"
   end
 
+  def available_blog_post_files
+    blog_posts_dir = Rails.root.join("public", "blog_posts")
+    return [] unless Dir.exist?(blog_posts_dir)
+
+    Dir.glob(File.join(blog_posts_dir, "*.md"))
+      .map { |path| File.basename(path) }
+      .sort
+  end
+
+  def available_presentation_files
+    presentations_dir = Rails.root.join("public", "presentations")
+    return [] unless Dir.exist?(presentations_dir)
+
+    Dir.glob(File.join(presentations_dir, "*.pptx"))
+      .map { |path| File.basename(path) }
+      .sort
+  end
+
   def contact_info
     @contact_info ||= ContactInfo.instance
+  end
+
+  def footer_icon_hover_classes
+    "hover:ring-2 hover:ring-blue-500 hover:ring-offset-2 rounded transition-all duration-200"
   end
 
   def h1_classes
@@ -28,23 +50,5 @@ module ApplicationHelper
     return nil if url.blank?
     return url if url.start_with?("http://", "https://")
     nil
-  end
-
-  def available_presentation_files
-    presentations_dir = Rails.root.join("public", "presentations")
-    return [] unless Dir.exist?(presentations_dir)
-
-    Dir.glob(File.join(presentations_dir, "*.pptx"))
-      .map { |path| File.basename(path) }
-      .sort
-  end
-
-  def available_blog_post_files
-    blog_posts_dir = Rails.root.join("public", "blog_posts")
-    return [] unless Dir.exist?(blog_posts_dir)
-
-    Dir.glob(File.join(blog_posts_dir, "*.md"))
-      .map { |path| File.basename(path) }
-      .sort
   end
 end

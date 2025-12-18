@@ -2,31 +2,31 @@
   <div class="container mx-auto px-5 py-4">
     <div class="flex justify-center space-x-6">
       <% if contact_info.email.present? %>
-        <%= link_to "mailto:#{contact_info.email}", class: "hover:opacity-80 transition-opacity", title: "Email" do %>
+        <%= link_to "mailto:#{contact_info.email}", class: footer_icon_hover_classes, title: "Email" do %>
           <%= image_tag "email.svg", alt: "Email", class: "w-6 h-6" %>
         <% end %>
       <% end %>
 
       <% if safe_url(contact_info.github_url) %>
-        <%= link_to safe_url(contact_info.github_url), target: "_blank", rel: "noopener", class: "hover:opacity-80 transition-opacity", title: "GitHub" do %>
+        <%= link_to safe_url(contact_info.github_url), target: "_blank", rel: "noopener", class: footer_icon_hover_classes, title: "GitHub" do %>
           <%= image_tag "github.svg", alt: "GitHub", class: "w-6 h-6" %>
         <% end %>
       <% end %>
 
       <% if safe_url(contact_info.linkedin_url) %>
-        <%= link_to safe_url(contact_info.linkedin_url), target: "_blank", rel: "noopener", class: "hover:opacity-80 transition-opacity", title: "LinkedIn" do %>
+        <%= link_to safe_url(contact_info.linkedin_url), target: "_blank", rel: "noopener", class: footer_icon_hover_classes, title: "LinkedIn" do %>
           <%= image_tag "linkedin.svg", alt: "LinkedIn", class: "w-6 h-6" %>
         <% end %>
       <% end %>
 
       <% if safe_url(contact_info.twitter_url) %>
-        <%= link_to safe_url(contact_info.twitter_url), target: "_blank", rel: "noopener", class: "hover:opacity-80 transition-opacity", title: "Twitter/X" do %>
+        <%= link_to safe_url(contact_info.twitter_url), target: "_blank", rel: "noopener", class: footer_icon_hover_classes, title: "Twitter/X" do %>
           <%= image_tag "twitter.svg", alt: "Twitter/X", class: "w-6 h-6" %>
         <% end %>
       <% end %>
 
       <% if safe_url(contact_info.untapped_url) %>
-        <%= link_to safe_url(contact_info.untapped_url), target: "_blank", rel: "noopener", class: "hover:opacity-80 transition-opacity", title: "Untappd" do %>
+        <%= link_to safe_url(contact_info.untapped_url), target: "_blank", rel: "noopener", class: footer_icon_hover_classes, title: "Untappd" do %>
           <%= image_tag "Untappd.svg", alt: "Untappd", class: "w-6 h-6" %>
         <% end %>
       <% end %>
