@@ -12,12 +12,21 @@
           <%= presentation.title %>
         </h2>
 
-        <% if presentation.slides_url.present? %>
+        <% if presentation.slides_url.present? || safe_url(presentation.github_url) %>
           <p class="mb-2">
-            <%= link_to "/presentations/#{presentation.slides_url}", target: "_blank", rel: "noopener", class: "#{link_classes} inline-flex items-center gap-1" do %>
-              Download Slidedeck
-              <%= image_tag "download.svg", alt: "Download", class: "w-4 h-4" %>
+            <% if presentation.slides_url.present? %>
+              <%= link_to "/presentations/#{presentation.slides_url}", target: "_blank", rel: "noopener", class: "#{link_classes} inline-flex items-center gap-1 pr-3" do %>
+                Download Slidedeck
+                <%= image_tag "download.svg", alt: "Download", class: "w-4 h-4" %>
+              <% end %>
             <% end %>
+
+            <% if safe_url(presentation.github_url) %>
+              <%= link_to safe_url(presentation.github_url), target: "_blank", rel: "noopener", class: "#{link_classes} inline-flex items-center gap-1" do %>
+                GitHub Repository
+                <%= image_tag "github.svg", alt: "GitHub", class: "w-4 h-4" %>
+              <% end %>
+          <% end %>
           </p>
         <% end %>
 
