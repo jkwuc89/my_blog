@@ -21,7 +21,7 @@
 
     <div>
       <strong>Content:</strong>
-      <div class="prose max-w-none mt-2">
+      <div class="<%= markdown_classes %> mt-2">
         <% content = BlogPostFileReader.read_content(@blog_post.filename) %>
         <%= render_markdown(content) if content.present? %>
       </div>

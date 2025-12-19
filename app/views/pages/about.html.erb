@@ -3,7 +3,7 @@
 <div class="max-w-5xl mx-auto">
   <h1 class="<%= h1_classes %>">About Me</h1>
 
-  <div class="prose max-w-none mb-8 [&_a]:text-blue-500 [&_a]:hover:underline">
+  <div class="<%= markdown_classes %> mb-8">
     <%= render_markdown(@bio.content) if @bio.content.present? %>
   </div>
 
