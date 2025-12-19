@@ -128,7 +128,7 @@ set -a; source .env; set +a; bin/kamal setup
 If the database isn't created automatically, you can trigger the creation manually after the first deploy:
 
 ```bash
-set -a; source .env; set +a; kamal app exec -- "bin/rails db:prepare"
+set -a; source .env; set +a; bin/kamal app exec -- "bin/rails db:prepare"
 ```
 
 ## Routine Deployments
@@ -136,7 +136,7 @@ set -a; source .env; set +a; kamal app exec -- "bin/rails db:prepare"
 For future updates (code changes, CSS updates), simply run:
 
 ```bash
-set -a; source .env; set +a; kamal deploy
+set -a; source .env; set +a; bin/kamal deploy
 ```
 
 Because of the `volumes` configuration in `deploy.yml`, your `production.sqlite3`
