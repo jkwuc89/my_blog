@@ -8,6 +8,7 @@ It is configured for a SQLite database, Tailwind CSS, and supports both `yourdom
 1. **DigitalOcean Account:** [Create an account](https://cloud.digitalocean.com/).
 2. **Domain Name:** Registered (instructions below).
 3. **GitHub Container Registry (GHCR) Access:** We will store your Docker images on GitHub.
+4. **Docker**: Start the Docker app to start its daemon.
 
 ---
 
@@ -133,11 +134,13 @@ set -a; source .env; set +a; bin/kamal app exec -- "bin/rails db:prepare"
 
 ## Routine Deployments
 
-For future updates (code changes, CSS updates), simply run:
-
-```bash
-set -a; source .env; set +a; bin/kamal deploy
-```
+For future updates (code changes, CSS updates), run: `bin/deploy`
 
 Because of the `volumes` configuration in `deploy.yml`, your `production.sqlite3`
 file will persist in `/var/lib/my-blog-storage` on the Droplet even as the containers are destroyed and replaced.
+
+## Post Deployment
+
+### Rails Console
+
+Run `bin/console`.
