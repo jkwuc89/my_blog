@@ -14,30 +14,38 @@ This plan creates a parallel implementation of the Rails blog application using 
 
 ## Architecture Overview
 
+**Directory Structure:**
 ```
-my-blog-java/
-├── src/
-│   ├── main/
-│   │   ├── java/com/kwedinger/blog/
-│   │   │   ├── BlogApplication.java
-│   │   │   ├── config/          # Configuration classes
-│   │   │   ├── controller/      # Public and admin controllers
-│   │   │   ├── model/           # JPA entities (Lombok classes)
-│   │   │   ├── repository/      # Spring Data repositories
-│   │   │   ├── service/         # Business logic
-│   │   │   ├── security/        # Spring Security config
-│   │   │   └── dto/             # Data transfer objects
-│   │   ├── resources/
-│   │   │   ├── application.properties
-│   │   │   ├── db/migration/    # Flyway migrations
-│   │   │   └── static/          # Static files (shared with Rails)
-│   │   └── templates/           # Thymeleaf templates
-│   └── test/
-├── Dockerfile
-├── config/
-│   └── deploy.yml               # Kamal deployment config
-└── build.gradle
+/Users/kwedinger/projects/
+├── my-blog/              # Rails implementation (existing)
+└── my-blog-java/         # Java/Spring Boot implementation (new, sibling directory)
+    ├── src/
+    │   ├── main/
+    │   │   ├── java/com/kwedinger/blog/
+    │   │   │   ├── BlogApplication.java
+    │   │   │   ├── config/          # Configuration classes
+    │   │   │   ├── controller/      # Public and admin controllers
+    │   │   │   ├── model/           # JPA entities (Lombok classes)
+    │   │   │   ├── repository/      # Spring Data repositories
+    │   │   │   ├── service/         # Business logic
+    │   │   │   ├── security/        # Spring Security config
+    │   │   │   └── dto/             # Data transfer objects
+    │   │   ├── resources/
+    │   │   │   ├── application.properties
+    │   │   │   ├── db/migration/    # Flyway migrations
+    │   │   │   └── static/          # Static files (copied from Rails public/)
+    │   │   └── templates/           # Thymeleaf templates
+    │   └── test/
+    ├── .github/
+    │   └── workflows/
+    │       └── ci.yml               # GitHub Actions CI workflow
+    ├── Dockerfile
+    ├── config/
+    │   └── deploy.yml               # Kamal deployment config
+    └── build.gradle
 ```
+
+**Note:** The Java implementation is a separate repository in its own directory, not nested under the Rails project. Both projects are siblings under `/Users/kwedinger/projects/`.
 
 ## Implementation Steps
 
@@ -46,10 +54,10 @@ my-blog-java/
 **CLI Steps:**
 
 ```bash
-# Navigate to project root
-cd /Users/kwedinger/projects/my-blog
+# Navigate to projects directory (parent of my-blog)
+cd /Users/kwedinger/projects
 
-# Create new directory for Java implementation
+# Create new directory for Java implementation (sibling to my-blog)
 mkdir my-blog-java
 cd my-blog-java
 
@@ -81,7 +89,7 @@ Create the following directory structure:
 
 - `src/main/java/com/kwedinger/blog/` - Main Java source
 - `src/main/resources/templates/` - Thymeleaf templates
-- `src/main/resources/static/` - Static assets (symlink or copy from Rails `public/`)
+- `src/main/resources/static/` - Static assets (copied from Rails `public/`)
 - `src/main/resources/db/migration/` - Flyway migration scripts
 - `src/test/java/com/kwedinger/blog/` - Test classes
 
@@ -251,15 +259,15 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 Create service classes:
 
 - **BlogPostFileReader** (`com.kwedinger.blog.service.BlogPostFileReader`)
-  - `readContent(String filename)` - Reads markdown file from `public/blog_posts/`
+  - `readContent(String filename)` - Reads markdown file from `src/main/resources/static/blog_posts/`
   - `excerpt(String filename, int words)` - Generates excerpt from markdown
 
 - **MarkdownService** (`com.kwedinger.blog.service.MarkdownService`)
   - `renderMarkdown(String content)` - Converts markdown to HTML (using CommonMark or Flexmark)
 
 - **FileService** (`com.kwedinger.blog.service.FileService`)
-  - `getAvailableBlogPostFiles()` - Lists `.md` files in `public/blog_posts/`
-  - `getAvailablePresentationFiles()` - Lists `.pptx` files in `public/presentations/`
+  - `getAvailableBlogPostFiles()` - Lists `.md` files in `src/main/resources/static/blog_posts/`
+  - `getAvailablePresentationFiles()` - Lists `.pptx` files in `src/main/resources/static/presentations/`
 
 - **BioService** (`com.kwedinger.blog.service.BioService`)
   - Singleton pattern implementation for Bio entity
@@ -360,18 +368,44 @@ Create templates mirroring Rails ERB views:
 
 ### 10. Static Assets
 
-**Options:**
+Copy static assets from the Rails project to the Java project's `src/main/resources/static/` directory.
 
-1. Symlink `public/` directory from Rails app
-2. Copy static files to `src/main/resources/static/`
-3. Configure Spring Boot to serve from Rails `public/` directory
+**Copy Static Files:**
 
-**Files to include:**
+```bash
+# Create static directory structure
+mkdir -p /Users/kwedinger/projects/my-blog-java/src/main/resources/static
+
+# Copy all static assets from Rails project
+cp -r /Users/kwedinger/projects/my-blog/public/* /Users/kwedinger/projects/my-blog-java/src/main/resources/static/
+
+# Verify the structure
+ls -la /Users/kwedinger/projects/my-blog-java/src/main/resources/static/
+```
+
+**Files to copy:**
 
 - `public/blog_posts/*.md` - Blog post markdown files
 - `public/presentations/*.pptx` - Presentation files
 - `public/documents/*.pdf` - Resume and documents
-- SVG icons for social media
+- SVG icons for social media (from `public/` or `app/assets/images/`)
+- Any other static assets (favicons, robots.txt, etc.)
+
+**Directory Structure After Copy:**
+
+```
+src/main/resources/static/
+├── blog_posts/
+│   └── *.md files
+├── presentations/
+│   └── *.pptx files
+├── documents/
+│   └── *.pdf files
+├── *.svg (social media icons)
+└── other static files
+```
+
+**Note:** Static assets are copied once during initial setup. If you add new blog posts or presentations to the Rails project, you'll need to copy them to the Java project as well, or set up a sync script/process.
 
 ### 11. Tailwind CSS Integration
 
@@ -420,8 +454,8 @@ spring.thymeleaf.prefix=classpath:/templates/
 spring.thymeleaf.suffix=.html
 spring.thymeleaf.cache=false
 
-# Static resources
-spring.web.resources.static-locations=classpath:/static/,file:../public/
+# Static resources (copied from Rails project to src/main/resources/static/)
+spring.web.resources.static-locations=classpath:/static/
 
 # Session
 server.servlet.session.cookie.name=session_id
@@ -588,9 +622,14 @@ exec kamal "$@"
 
 **Environment Variables (.env):**
 
+Create a `.env` file in the `my-blog-java` directory. The `KAMAL_REGISTRY_PASSWORD` can be reused from the Rails project's `.env` file since both projects use the same GitHub Container Registry:
+
 ```bash
+# Reuse the same GitHub token from Rails project
 KAMAL_REGISTRY_PASSWORD=ghp_your_github_token_here
 ```
+
+**Note:** You can copy the `KAMAL_REGISTRY_PASSWORD` value directly from `/Users/kwedinger/projects/my-blog/.env` since both projects deploy to the same GitHub Container Registry (ghcr.io).
 
 **Deployment Commands:**
 
@@ -600,7 +639,164 @@ KAMAL_REGISTRY_PASSWORD=ghp_your_github_token_here
 - Access shell: `bin/kamal app exec --interactive --reuse "bash"`
 - Run Flyway migrations: `bin/kamal app exec "java -jar app.jar --spring.flyway.migrate=true"`
 
-### 17. Documentation - README.md
+### 17. GitHub Repository Setup
+
+**Create New GitHub Repository:**
+
+1. **Create repository on GitHub:**
+   - Repository name: `my-blog-java` (or preferred name)
+   - Description: "Personal blog website built with Spring Boot 4.0.2"
+   - Visibility: Private (or public, as preferred)
+   - Do NOT initialize with README, .gitignore, or license (Spring Boot CLI creates these)
+
+2. **Initialize Git repository early (after Spring Boot project initialization):**
+   ```bash
+   cd /Users/kwedinger/projects/my-blog-java
+   git init
+   git branch -M main
+   git remote add origin https://github.com/jkwuc89/my-blog-java.git
+   ```
+   
+   **Note:** Initialize git early (after step 1 of Implementation Todos), but make the initial commit after Spring Boot CLI setup. Then continue with incremental commits as you work through the todos.
+
+3. **Initial commit (after Spring Boot CLI setup):**
+   ```bash
+   git add .
+   git commit -m "Initial commit: Spring Boot project setup with Gradle 9.3 and Java 25"
+   git push -u origin main
+   ```
+   
+   **Note:** After the initial push, continue making commits for each todo item as specified in the Implementation Todos section.
+
+4. **Create .env file for deployment:**
+   ```bash
+   # Copy KAMAL_REGISTRY_PASSWORD from Rails project
+   cd /Users/kwedinger/projects/my-blog-java
+   # Extract the password from Rails .env and create new .env file
+   echo "KAMAL_REGISTRY_PASSWORD=$(grep KAMAL_REGISTRY_PASSWORD ../my-blog/.env | cut -d '=' -f2)" > .env
+   # Or manually copy the value from ../my-blog/.env
+   ```
+   
+   **Note:** The `KAMAL_REGISTRY_PASSWORD` can be reused from the Rails project's `.env` file since both projects deploy to the same GitHub Container Registry. The `.env` file should already be in `.gitignore` (created by Spring Boot CLI).
+
+5. **Verify .gitignore includes .env:**
+   - Spring Boot CLI should create a `.gitignore`, but verify it includes:
+     - `build/` (Gradle build output)
+     - `.gradle/` (Gradle cache)
+     - `*.log` (log files)
+     - `storage/` (SQLite database files - or commit empty directory structure)
+     - `.env` (environment variables - contains secrets, do not commit)
+     - IDE-specific files (`.idea/`, `.vscode/`, etc.)
+   
+   **Important:** The `.env` file contains `KAMAL_REGISTRY_PASSWORD` which is a secret. Ensure `.env` is in `.gitignore` and never committed to the repository. You can reuse the same password value from the Rails project's `.env` file (`/Users/kwedinger/projects/my-blog/.env`).
+
+### 18. GitHub Actions CI/CD Workflow
+
+**File to create:** `.github/workflows/ci.yml`
+
+**CI Workflow Configuration:**
+
+Create a GitHub Actions workflow that runs on pull requests and pushes to main, building the application and running all tests.
+
+```yaml
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build --no-daemon
+
+      - name: Run tests
+        run: ./gradlew test --no-daemon
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: build/test-results/test/
+          retention-days: 30
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: build-artifacts
+          path: build/libs/*.jar
+          retention-days: 7
+```
+
+**CI Workflow Features:**
+
+- **Triggers:** Runs on pull requests and pushes to main branch
+- **Java Setup:** Uses JDK 25 (Temurin distribution)
+- **Gradle Caching:** Caches Gradle dependencies for faster builds
+- **Build:** Compiles the application and runs all tests
+- **Artifacts:** Uploads test results and build artifacts for inspection
+- **No Daemon:** Uses `--no-daemon` flag for CI environments
+
+**Optional Additional Jobs:**
+
+Consider adding these jobs for more comprehensive CI:
+
+```yaml
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: 'gradle'
+      
+      - name: Run Checkstyle (if configured)
+        run: ./gradlew checkstyleMain checkstyleTest --no-daemon
+      
+      # Or use SpotBugs, PMD, etc.
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: 'gradle'
+      
+      - name: Run OWASP Dependency Check (if configured)
+        run: ./gradlew dependencyCheckAnalyze --no-daemon
+```
+
+### 19. Documentation - README.md
 
 Create a comprehensive README.md file that mirrors the Rails version's README structure, adapted for Java/Spring Boot:
 
@@ -679,7 +875,7 @@ Create a comprehensive README.md file that mirrors the Rails version's README st
 - Replace ERB references with Thymeleaf
 - Replace Rails console with Spring Boot shell or direct SQL
 - Update project structure to reflect Java/Spring Boot conventions
-- Note that `public/` directory is shared with Rails implementation for static files (blog posts, presentations)
+- Note that static files (blog posts, presentations) are copied from Rails project to Java project's `src/main/resources/static/`
 - Note that Java implementation uses its own separate database (`storage/java_development.sqlite3`)
 - Include Kamal deployment section with Docker configuration
 - Include deployment commands and environment setup
@@ -691,9 +887,13 @@ Create a comprehensive README.md file that mirrors the Rails version's README st
    - Java: `storage/java_development.sqlite3`
    - Both implementations maintain their own independent databases
    - Data can be synchronized manually if needed, or each implementation can be used independently
-2. **Static Files:** Share `public/` directory between both implementations for blog posts, presentations, and documents
+2. **Static Files:** Copy static assets from Rails project (`public/`) to Java project (`src/main/resources/static/`)
+   - Blog posts, presentations, documents, and other static files are copied during initial setup
+   - Both implementations maintain their own copies of static assets
+   - New files added to Rails project will need to be copied to Java project manually or via sync process
 3. **Incremental Development:** Build one feature at a time, starting with authentication, then public pages, then admin interface
 4. **Initial Data:** Since databases are separate, initial data (users, blog posts, presentations, etc.) will need to be set up independently for the Java implementation
+5. **Repository Structure:** Java implementation is in a separate GitHub repository, independent from the Rails implementation
 
 ## Deployment Strategy
 
@@ -741,14 +941,16 @@ No changes needed. Both applications run on the same droplet.
 ### Prerequisites for Deployment
 
 1. **DigitalOcean Droplet:** Already set up for Rails deployment
-2. **GitHub Container Registry:** Access token for pushing Docker images
+2. **GitHub Container Registry:** Access token for pushing Docker images (reuse from Rails project)
 3. **Kamal:** Installed locally (`gem install kamal`)
 4. **Docker:** Running locally for building images
 
 ### Deployment Steps
 
 1. **Configure Environment:**
-   - Create `.env` file with `KAMAL_REGISTRY_PASSWORD` (GitHub token)
+   - Create `.env` file in `my-blog-java` directory
+   - Copy `KAMAL_REGISTRY_PASSWORD` from Rails project's `.env` file (`/Users/kwedinger/projects/my-blog/.env`)
+   - Both projects can use the same GitHub token since they deploy to the same registry
    - Ensure Docker is running locally
 
 2. **Initial Setup:**
@@ -800,8 +1002,9 @@ Both Rails and Java implementations run simultaneously on the same droplet:
   - Traefik reverse proxy handles routing and SSL termination
 
 - **Static Files:**
-  - Shared `public/` directory can be mounted to both containers if needed
-  - Or each app can serve its own static assets
+  - Each app serves its own static assets from its container
+  - Java app serves from `src/main/resources/static/` (copied from Rails `public/`)
+  - Rails app serves from `public/`
 
 ### URL Access
 
@@ -814,8 +1017,8 @@ Both Rails and Java implementations run simultaneously on the same droplet:
 ## CLI Commands Summary
 
 ```bash
-# 1. Create project directory
-cd /Users/kwedinger/projects/my-blog
+# 1. Create project directory (sibling to my-blog, not nested)
+cd /Users/kwedinger/projects
 mkdir my-blog-java && cd my-blog-java
 
 # 2. Initialize Spring Boot project using Spring Boot CLI
@@ -837,13 +1040,32 @@ spring init \
 mkdir -p src/main/java/com/kwedinger/blog/{config,controller/admin,security,dto}
 mkdir -p src/main/resources/templates/{layouts/fragments,blog_posts,presentations,pages,sessions,admin/{bio,contact_info,blog_posts,presentations,conferences}}
 mkdir -p src/main/resources/db/migration
+mkdir -p src/main/resources/static
 
-# 5. Verify versions
+# 5. Copy static assets from Rails project
+cp -r ../my-blog/public/* src/main/resources/static/
+mkdir -p .github/workflows
+
+# 5. Copy static assets from Rails project
+cp -r ../my-blog/public/* src/main/resources/static/
+
+# 6. Create GitHub Actions CI workflow
+# Create .github/workflows/ci.yml (see section 18)
+
+# 7. Initialize Git repository and connect to GitHub
+git init
+git add .
+git commit -m "Initial commit: Spring Boot project setup"
+git branch -M main
+git remote add origin https://github.com/jkwuc89/my-blog-java.git
+git push -u origin main
+
+# 9. Verify versions
 java -version     # Should show 25.0.1-tem
 gradle -v         # Should show 9.3
 spring --version  # Should show Spring Boot CLI version
 
-# 6. After setup, build and run
+# 10. After setup, build and run
 ./gradlew build
 ./gradlew bootRun
 ```
@@ -872,25 +1094,91 @@ spring --version  # Should show Spring Boot CLI version
 
 ## Implementation Todos
 
-1. Initialize Spring Boot project using Spring Boot CLI with Gradle 9.3 and Java 25
-2. Add additional dependencies to build.gradle (SQLite JDBC driver, Flyway, Markdown library) after spring init
-3. Set up application.properties with SQLite database configuration and Flyway migrations
-4. Create Flyway migration script (V1__initial_schema.sql) matching Rails schema
-5. Create JPA entity models using Lombok (User, Session, Bio, ContactInfo, BlogPost, Presentation, Conference, ConferencePresentation) - using @Data annotation to reduce boilerplate while maintaining mutability for JPA updates
-6. Create Spring Data JPA repositories for all entities
-7. Implement service classes (BlogPostFileReader, MarkdownService, FileService, BioService, ContactInfoService)
-8. Configure Spring Security with session-based authentication and admin route protection
-9. Create public controllers (BlogPostsController, PresentationsController, PagesController, SessionsController)
-10. Create admin controllers (Dashboard, Bio, ContactInfo, BlogPosts, Presentations, Conferences)
-11. Create Thymeleaf templates for all public and admin views
-12. Set up static file serving for blog posts, presentations, and documents
-13. Configure Tailwind CSS compilation and integration
-14. Create utility/helper classes for view rendering (markdown, URL safety, CSS classes)
-15. Create Dockerfile for containerized deployment
-16. Create Kamal deployment configuration (config/deploy.yml)
-17. Create deployment scripts (bin/deploy, bin/kamal wrapper)
-18. Create README.md documenting the Java/Spring Boot implementation, mirroring Rails README structure including deployment section
-19. Test authentication flow and session management
-20. Test all CRUD operations in admin interface
-21. Verify file-based blog posts and presentations render correctly
-22. Test Kamal deployment to DigitalOcean droplet
+Each todo should be followed by a git commit with a meaningful commit message. Commits should be atomic and focused on a single feature or change.
+
+1. **Initialize Spring Boot project using Spring Boot CLI with Gradle 9.3 and Java 25**
+   - **Commit:** `git commit -m "Initial commit: Spring Boot project setup with Gradle 9.3 and Java 25"`
+
+2. **Add additional dependencies to build.gradle (SQLite JDBC driver, Flyway, Markdown library) after spring init**
+   - **Commit:** `git commit -m "Add dependencies: SQLite JDBC, Flyway, CommonMark, Lombok"`
+
+3. **Set up application.properties with SQLite database configuration and Flyway migrations**
+   - **Commit:** `git commit -m "Configure application.properties for SQLite and Flyway"`
+
+4. **Create Flyway migration script (V1__initial_schema.sql) matching Rails schema**
+   - **Commit:** `git commit -m "Add Flyway migration: initial database schema"`
+
+5. **Create JPA entity models using Lombok (User, Session, Bio, ContactInfo, BlogPost, Presentation, Conference, ConferencePresentation)**
+   - **Commit:** `git commit -m "Add JPA entity models with Lombok annotations"`
+
+6. **Create Spring Data JPA repositories for all entities**
+   - **Commit:** `git commit -m "Add Spring Data JPA repositories for all entities"`
+
+7. **Implement service classes (BlogPostFileReader, MarkdownService, FileService, BioService, ContactInfoService)**
+   - **Commit:** `git commit -m "Add service classes for blog posts, markdown, files, and singletons"`
+
+8. **Configure Spring Security with session-based authentication and admin route protection**
+   - **Commit:** `git commit -m "Configure Spring Security with session-based authentication"`
+
+9. **Create public controllers (BlogPostsController, PresentationsController, PagesController, SessionsController)**
+   - **Commit:** `git commit -m "Add public controllers for blog, presentations, pages, and sessions"`
+
+10. **Create admin controllers (Dashboard, Bio, ContactInfo, BlogPosts, Presentations, Conferences)**
+    - **Commit:** `git commit -m "Add admin controllers for dashboard and CRUD operations"`
+
+11. **Create Thymeleaf templates for all public and admin views**
+    - **Commit:** `git commit -m "Add Thymeleaf templates for public and admin views"`
+
+12. **Copy static assets from Rails project to Java project's src/main/resources/static/**
+    - **Commit:** `git commit -m "Add static assets: blog posts, presentations, and documents"`
+
+13. **Configure Tailwind CSS compilation and integration**
+    - **Commit:** `git commit -m "Configure Tailwind CSS compilation and integration"`
+
+14. **Create utility/helper classes for view rendering (markdown, URL safety, CSS classes)**
+    - **Commit:** `git commit -m "Add utility classes for view rendering helpers"`
+
+15. **Create Dockerfile for containerized deployment**
+    - **Commit:** `git commit -m "Add Dockerfile for containerized deployment"`
+
+16. **Create Kamal deployment configuration (config/deploy.yml)**
+    - **Commit:** `git commit -m "Add Kamal deployment configuration"`
+
+17. **Create deployment scripts (bin/deploy, bin/kamal wrapper)**
+    - **Commit:** `git commit -m "Add deployment scripts for Kamal"`
+
+18. **Create new GitHub repository for Java implementation**
+    - **Note:** This is done on GitHub, not in code. No commit needed.
+
+19. **Create GitHub Actions CI workflow (.github/workflows/ci.yml) for automated testing**
+    - **Commit:** `git commit -m "Add GitHub Actions CI workflow for automated testing"`
+
+20. **Initialize Git repository and push to GitHub**
+    - **Note:** This happens after the first commit. Subsequent commits are pushed as work progresses.
+
+21. **Create README.md documenting the Java/Spring Boot implementation**
+    - **Commit:** `git commit -m "Add README.md with setup and deployment documentation"`
+
+22. **Test authentication flow and session management**
+    - **Commit (if fixes needed):** `git commit -m "Fix authentication flow and session management"`
+
+23. **Test all CRUD operations in admin interface**
+    - **Commit (if fixes needed):** `git commit -m "Fix admin CRUD operations"`
+
+24. **Verify file-based blog posts and presentations render correctly**
+    - **Commit (if fixes needed):** `git commit -m "Fix static file serving and rendering"`
+
+25. **Test Kamal deployment to DigitalOcean droplet**
+    - **Commit (if fixes needed):** `git commit -m "Fix deployment configuration"`
+
+26. **Verify CI workflow runs successfully on GitHub**
+    - **Commit (if fixes needed):** `git commit -m "Fix CI workflow configuration"`
+
+**Git Workflow Notes:**
+
+- Initialize git repository early (after step 1 or 2) with `git init`
+- Make commits after each logical unit of work
+- Push to GitHub after step 20 (initial push) and periodically as work progresses
+- Use descriptive commit messages following conventional commit format
+- Group related small changes together when it makes sense (e.g., multiple entity models in one commit)
+- Test before committing when possible
