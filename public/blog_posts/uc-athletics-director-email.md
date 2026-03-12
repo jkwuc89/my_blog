@@ -1,6 +1,4 @@
-# An Open Letter to UC Athletics Director John Cunningham
-
-To John Cunningham, AD at the University of Cincinnati,
+**To: John Cunningham, AD at the University of Cincinnati,**
 
 Thank you for taking the time to review this. I am a 1989 graduate and a long time season ticket holder. I have witnessed first hand the depths to which this program has fallen and the heights it has achieved. And I believe Bearcats men's basketball is one of the historically best programs in the country. With that said...
 
@@ -13,9 +11,9 @@ Over the course of your tenure, you have stated many times that the goal for Bea
 - 9-41 vs. Q1 (0.18)
 - 5-20 vs. ranked opponents (0.20)
 - 12-21 record in games decided by >5 points (.364)
-- 0 conference championships
-- 0 conference tournament championships
-- 0 NCAA tournaments
+- **0 conference championships**
+- **0 conference tournament championships**
+- **0 NCAA tournaments**
 
 At a game by game level, we have seen many examples under the current coaching staff where the Bearcats either failed to comeback to win games or failed to finish games where the Bearcats were in a very good position to win.
 
