@@ -53,6 +53,45 @@ Why does this matter? **Context is a budget.** The audit skill's check catalog p
 
 Only six of the 43 rules are always-on today, down from eight. Everything else earns its way into context by matching a file the agent is actually working on. Even skill descriptions have a character budget, because *"a description carrying implementation detail pays for that detail on every turn of every conversation."*
 
+## What Became a Skill—and What Became a Rule
+
+People have asked what actually goes into a corpus like this. Here are the general-purpose skills and a sample of the rules, with client-specific details removed.
+
+### The Skills
+
+| Skill | What it does |
+|---|---|
+| `lift-and-shift-modernization` | Converts one legacy screen end to end: analysis, plan, implementation, PR, QA signoff |
+| `create-modernization-plan` | Writes the plan: analysis carry-forward, baseline conformance, work items ordered by layer |
+| `build-export` | Adds PDF/Excel export to a converted screen, back end and front end |
+| `resolve-pr-comments` | Walks a PR's review threads one at a time: fix, commit, reply, harvest |
+| `resolve-qa-issues` | Triages a QA issue list, then fixes, verifies, and annotates each issue |
+| `audit-rules-and-skills` | Lints the corpus itself |
+
+The other two skills handle client-specific integrations that wouldn't carry over to another project.
+
+### The Rules
+
+| Category | Count | Examples |
+|---|---|---|
+| **Always-on** | 6 | architecture guardrails, conversion workflow, git approval gates, naming conventions, commit markers, safe read-only commands |
+| **Angular / UI** | 12 | component patterns, signals, routing, editable data grids, accessibility, design-system package policy |
+| **.NET** | 9 | controllers, services, SQL providers, models, async, exception handling, logging |
+| **Tests** | 7 | Angular unit tests, .NET unit and integration tests, mocking, Playwright end-to-end tests and page objects |
+| **Database** | 3 | migrations, and a "shared database is read-only" rule |
+| **Plans** | 3 | plan conventions, plan conformance, a digest of rules that apply at planning time |
+| **Legacy analysis** | 2 | how to read the legacy XML page definitions, step by step |
+| **Meta** | 1 | edit the corpus at its source, never through the symlinks |
+
+### Rule or Skill?
+
+The line I landed on:
+
+* **It's a rule if it must always be true.** "Never call `.ToList()` on a provider result" and "controllers take a cancellation token last" are rules. They're triggered by the files being edited, not by a request.
+* **It's a skill if it has a start, an end, and steps in between.** "Modernize this screen" or "walk these QA issues" are skills. You invoke them, they produce something, and they usually include human approval gates.
+* **A reviewer comment usually becomes a rule. A task you keep repeating usually becomes a skill.** If you keep typing the same multi-step request, write it down once.
+* **When a rule starts growing a procedure, split it.** The conversion workflow began as a 250-line rule and grew past 300. Now it's a 38-line always-on rule that points to the procedure inside the planning skill.
+
 ## Thin Orchestrators, Fat References
 
 The always-on `conversion-workflow` rule is only 38 lines long. It declares the phase order—**Analyze → Build → Verify**, with the back end shipping before the front end—and then points to the skill's reference doc for the step-by-step procedure.
